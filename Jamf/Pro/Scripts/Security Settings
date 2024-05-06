@@ -1,0 +1,145 @@
+#!/bin/bash
+# Josh
+# Script verifies it is only running on Emerson laptops, non-emerson laptops will auto wipe via serverside apple API calls
+
+#----fetching the username from the console
+username=$(/bin/ls -l /dev/console | /usr/bin/awk '{print $3}')
+#----variables
+osVersion=$(/usr/bin/uname -r | /usr/bin/sed 's/\..*$//')
+UUID=$(/usr/sbin/ioreg -rd1 -c IOPlatformExpertDevice | /usr/bin/awk '/IOPlatformUUID/{print $3}' | /usr/bin/sed 's/"//g')
+iTime="600"
+pDelay="5"
+dACSleep="11"
+dBatSleep="11"
+dACDisSleep="11"
+dBatDisSleep="11"
+
+function killSysPrefs() {
+	# killing system preferences if detected open
+	sysprefPID=$(/bin/ps ax | /usr/bin/grep "System Preferences.app" | /usr/bin/grep -v grep | /usr/bin/awk '{print $1}')
+	if [ "${sysprefPID}" != "" ]; then
+		/bin/ps -fe | /usr/bin/grep "System Preferences" | /usr/bin/grep -v "grep" | /usr/bin/head -1 | /usr/bin/awk '{print $2}' | /usr/bin/xargs kill -9
+	fi
+}
+
+function checkByHost() {
+    # check for byhost file for systems that have migrated
+    if [ ! -f "/Users/${username}/Library/Preferences/ByHost/com.apple.screensaver.${UUID}.plist" ]; then
+        /bin/echo "Screensaver ByHost file not found...Creating it now."
+        /usr/bin/touch "/Users/${username}/Library/Preferences/ByHost/com.apple.screensaver.${UUID}.plist"
+        /usr/bin/defaults write "/Users/${username}/Library/Preferences/ByHost/com.apple.screensaver.${UUID}.plist" idleTime -int "${iTime}"
+        /usr/sbin/chown "${username}":staff "/Users/${username}/Library/Preferences/ByHost/com.apple.screensaver.${UUID}.plist"
+        /bin/chmod 600 "/Users/${username}/Library/Preferences/ByHost/com.apple.screensaver.${UUID}.plist"
+    fi
+}
+
+function screensaver() {
+    screenfile="com.apple.screensaver.${UUID}.plist"
+	reqscreen=$(/usr/bin/defaults read "/Users/${username}/Library/Preferences/ByHost/${screenfile}" idleTime)
+
+	if [ "${reqscreen}" == "" ]; then
+        /bin/echo "Screensaver IdleTime initial value not set...Creating it now."
+        /usr/bin/defaults write "/Users/${username}/Library/Preferences/ByHost/${screenfile}" idleTime -int "${iTime}"
+		/usr/sbin/chown -R "${username}":"staff" "/Users/${username}/Library/Preferences/ByHost/${screenfile}"
+	else
+		if [ "${reqscreen}" -gt "${iTime}" ] || [ "${reqscreen}" == "0" ]; then
+            /bin/echo "Screensaver IdleTime is beyond required value. Value is set to ${reqscreen}"
+			/usr/bin/defaults write "/Users/${username}/Library/Preferences/ByHost/${screenfile}" idleTime -int "${iTime}"
+			/usr/sbin/chown -R "${username}":"staff" "/Users/${username}/Library/Preferences/ByHost/${screenfile}"
+		fi
+	fi
+}
+
+function passWake() {
+	# set require password to wake to true
+	/usr/bin/defaults write "/Users/${username}/Library/Preferences/com.apple.screensaver" askForPassword -int 1
+	/usr/sbin/chown -R "${username}":"staff" "/Users/${username}/Library/Preferences/com.apple.screensaver.plist"
+
+	screensaver=$(/usr/bin/defaults read "/Users/${username}/Library/Preferences/com.apple.screensaver.plist" askForPasswordDelay)
+
+	if [ "${screensaver}" == "" ]; then
+		/usr/bin/defaults write "/Users/${username}/Library/Preferences/com.apple.screensaver.plist" askForPasswordDelay -int "${pDelay}"
+		/usr/sbin/chown -R "${username}":"staff" "/Users/${username}/Library/Preferences/com.apple.screensaver.plist"
+	else
+		if [ "${screensaver}" != "${pDelay}" ] || [ "${screensaver}" != "0" ] || [ "${screensaver}" != "0.0" ] ; then
+			/usr/bin/defaults write "/Users/${username}/Library/Preferences/com.apple.screensaver.plist" askForPasswordDelay -int "${pDelay}"
+			/usr/sbin/chown -R "${username}":"staff" "/Users/${username}/Library/Preferences/com.apple.screensaver.plist"
+		fi
+	fi
+}
+
+function energySaver() {
+	# set the timer for Computer sleep & Display sleep
+	acsleep=$(/usr/bin/pmset -g custom | /usr/bin/grep -w "sleep" | /usr/bin/awk '{print $2}' | /usr/bin/head -1)
+	batsleep=$(/usr/bin/pmset -g custom | /usr/bin/grep -w "sleep" | /usr/bin/awk '{print $2}' | /usr/bin/tail -1)
+	acdissleep=$(/usr/bin/pmset -g custom | /usr/bin/grep -w "displaysleep" | /usr/bin/awk '{print $2}' | /usr/bin/head -1)
+	batdissleep=$(/usr/bin/pmset -g custom | /usr/bin/grep -w "displaysleep" | /usr/bin/awk '{print $2}' | /usr/bin/tail -1)
+
+    if [ "${acsleep}" -lt "${dACSleep}" ] && [ "${acsleep}" != "0" ] && [ "${batsleep}" -lt "${dBatSleep}" ] && [ "${batsleep}" != "0" ] && [ "${acdissleep}" -lt "${dACDisSleep}" ] && [ "${acdissleep}" != "0" ] && [ "${batdissleep}" -lt "${dBatDisSleep}" ] && [ "${batdissleep}" != "0" ]; then
+        eResult="Good"
+    else
+        eResult="Bad"
+        /usr/bin/pmset -a sleep 10 2>/dev/null
+        /usr/bin/pmset -b sleep 10 2>/dev/null
+        /usr/bin/pmset -a displaysleep 10 2>/dev/null
+        /usr/bin/pmset -b displaysleep 10 2>/dev/null
+    fi
+}
+
+function autologin() {
+	# check Automatic login is turned off :
+	autoLog=$(/usr/bin/defaults read /Library/Preferences/com.apple.loginwindow | /usr/bin/grep autoLoginUser)
+	# disable the auto login user
+	if [ "${autoLog}" != "" ]; then
+		/usr/bin/defaults delete /Library/Preferences/com.apple.loginwindow autoLoginUser
+	fi
+
+    if [ "${autoLog}" == "" ]; then
+        aResult="Disabled"
+    else
+        aResult="Enabled"
+    fi
+}
+
+function firewall() {
+	# Firewall
+	firewall=$(/usr/bin/defaults read /Library/Preferences/com.apple.alf globalstate)
+	if [ "${firewall}" != "1" ]; then
+        /bin/echo "Firewall not set...."
+        /bin/launchctl unload "/System/Library/LaunchAgents/com.apple.alf.useragent.plist" 2> /dev/null
+		/bin/launchctl unload "/System/Library/LaunchDaemons/com.apple.alf.agent.plist" 2> /dev/null
+	# Globalstate - Set to 0 for off, 1 for on, 2 for "Block all incoming access"
+		/usr/bin/defaults write "/Library/Preferences/com.apple.alf" globalstate -int 1
+		/usr/bin/defaults write "/Library/Preferences/com.apple.alf" stealthenabled -int 1
+        /bin/launchctl load "/System/Library/LaunchDaemons/com.apple.alf.agent.plist" 2> /dev/null
+        /bin/launchctl load "/System/Library/LaunchAgents/com.apple.alf.useragent.plist" 2> /dev/null
+	fi
+}
+
+function killcache() {
+	if [ "${osVersion}" -ge "13" ]; then
+		/bin/kill $(/bin/ps aux | /usr/bin/grep cfprefsd | /usr/bin/grep "${username}" | /usr/bin/grep -v grep | /usr/bin/awk '{print $2}');
+		/bin/kill $(/bin/ps aux | /usr/bin/grep cfprefsd | /usr/bin/grep root | /usr/bin/grep -v grep | /usr/bin/awk '{print $2}');
+	fi
+}
+
+#----Main Routine----#
+killSysPrefs
+checkByHost
+until [ "${counter}" == "3" ]; do
+	screensaver
+	passWake
+	energySaver
+	autologin
+	firewall
+    let counter="${counter}"+1
+done
+killcache
+
+/bin/echo "ScreenSaver idleTime ${reqscreen}"
+/bin/echo "AskForPassDelay is ${screensaver}"
+/bin/echo "Sleep is ${eResult}"
+/bin/echo "AutoLogin is ${aResult}"
+/bin/echo "Firewall is ${firewall}"
+
+exit 0

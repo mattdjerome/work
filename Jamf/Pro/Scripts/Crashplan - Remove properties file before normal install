@@ -1,0 +1,3 @@
+#!/bin/bash
+
+/bin/rm /Library/Application Support/CrashPlan/deploy.properties

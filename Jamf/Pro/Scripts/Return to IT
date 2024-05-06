@@ -1,0 +1,2 @@
+ #!/bin/bash
+"/Library/Application Support/JAMF/bin/jamfHelper.app/Contents/MacOS/jamfHelper" -windowType utility -title "From Emerson Collective IT" -description "This computer is the property of Emerson Collective. Please email ithelp@emersoncollective.com to return it to IT." -alignDescription left -icon /Library/EC/logo.png

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+
+current_user=$(ls -l /dev/console | awk '{print $3}')
+sudo launchctl unload /Library/LaunchAgents/com.code42.service.plist
+sudo chflags noschg /Applications/Code42.app
+sudo chmod -R 755 /Library/Application\ Support/CrashPlan/
+
+if [[ -e /Library/Application\ Support/CrashPlan/uninstall.sh  ]]; then
+	#For Version 12.2.0+
+	/Library/Application\ Support/CrashPlan/uninstall.sh --preserve-data-upgrade
+else
+	# versions prior to 12.2.0	
+	/Applications/Code42.app/Contents/Helpers/Uninstall.app/Contents/Resources/uninstall.sh --preserve-data-upgrade
+fi

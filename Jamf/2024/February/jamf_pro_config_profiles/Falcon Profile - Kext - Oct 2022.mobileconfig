@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1">
+  <dict>
+    <key>PayloadUUID</key>
+    <string>F8E57D4D-2B3D-488B-98AF-4E5584EF16BA</string>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadOrganization</key>
+    <string>Emerson Collective</string>
+    <key>PayloadIdentifier</key>
+    <string>F8E57D4D-2B3D-488B-98AF-4E5584EF16BA</string>
+    <key>PayloadDisplayName</key>
+    <string>Falcon Profile - Kext - Oct 2022</string>
+    <key>PayloadDescription</key>
+    <string>Used to allow for Crowdstrike Falcon Kernel Extensions (KEXT)</string>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
+    <key>PayloadEnabled</key>
+    <true/>
+    <key>PayloadRemovalDisallowed</key>
+    <true/>
+    <key>PayloadScope</key>
+    <string>System</string>
+    <key>PayloadContent</key>
+    <array>
+      <dict>
+        <key>PayloadUUID</key>
+        <string>5DEB18E2-89D7-45AA-B51B-5EDADA266908</string>
+        <key>PayloadType</key>
+        <string>com.apple.syspolicy.kernel-extension-policy</string>
+        <key>PayloadOrganization</key>
+        <string>Emerson Collective</string>
+        <key>PayloadIdentifier</key>
+        <string>5DEB18E2-89D7-45AA-B51B-5EDADA266908</string>
+        <key>PayloadDisplayName</key>
+        <string>Approved Kernel Extensions</string>
+        <key>PayloadDescription</key>
+        <string/>
+        <key>PayloadVersion</key>
+        <integer>1</integer>
+        <key>PayloadEnabled</key>
+        <true/>
+        <key>AllowUserOverrides</key>
+        <true/>
+        <key>AllowNonAdminUserApprovals</key>
+        <false/>
+        <key>AllowedTeamIdentifiers</key>
+        <array>
+          <string>X9E956P446</string>
+        </array>
+      </dict>
+    </array>
+  </dict>
+</plist>

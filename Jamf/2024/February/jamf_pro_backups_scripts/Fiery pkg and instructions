@@ -1,0 +1,5 @@
+#!/bin/bash
+
+current_user=$(ls -l /dev/console | awk '{print $3}')
+cp /Library/EC/Drivers/FieryPrinterDriver.pkg /Users/$current_user/Desktop #Copies the pkg from the install location to the desktop
+open https://emersoncollective.zendesk.com/hc/en-us/articles/20460726579739 # opens the KB with instructions to installs

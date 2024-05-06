@@ -1,0 +1,15 @@
+$vendorUninstallerPaths=(
+  "/Library/Application Support/CrashPlan/Uninstall.app/Contents/Resources/uninstall.sh"
+)
+
+$processNames=(
+  "Code42 CrashPlan"
+  "CrashPlan"
+)
+
+$resourceFiles=(
+  "/Applications/CrashPlan.app"
+  "/Library/Application Support/CrashPlan/"
+  "/Library/CrashPlan/"
+  "$loggedInUserHome/Library/Application Support/CrashPlan/"
+)

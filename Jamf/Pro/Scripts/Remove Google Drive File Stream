@@ -1,0 +1,9 @@
+#!/bin/bash
+rm -rf /Applications/Google\ Drive.app
+rm -rf /Applications/Google\ Sheets.app 
+rm -rf /Applications/Google\ Sheets.app 
+rm -rf /Applications/Google\ Slides.app 
+
+#above removes all the gdrive apps
+rm -rf ~/Library/Application\ Support/Google/DriveFS
+jamf policy -trigger InstallGDrive

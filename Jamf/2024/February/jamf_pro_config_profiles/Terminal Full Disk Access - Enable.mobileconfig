@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1">
+  <dict>
+    <key>PayloadUUID</key>
+    <string>D226F696-40A7-4496-B430-611BDF3738E1</string>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadOrganization</key>
+    <string>Emerson Collective</string>
+    <key>PayloadIdentifier</key>
+    <string>D226F696-40A7-4496-B430-611BDF3738E1</string>
+    <key>PayloadDisplayName</key>
+    <string>Terminal Full Disk Access - Enable</string>
+    <key>PayloadDescription</key>
+    <string>Grants Full Disk Access for terminal</string>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
+    <key>PayloadEnabled</key>
+    <true/>
+    <key>PayloadRemovalDisallowed</key>
+    <true/>
+    <key>PayloadScope</key>
+    <string>System</string>
+    <key>PayloadContent</key>
+    <array>
+      <dict>
+        <key>PayloadUUID</key>
+        <string>5BC14AEF-95ED-433E-90AA-D5C4B636F2E6</string>
+        <key>PayloadType</key>
+        <string>com.apple.TCC.configuration-profile-policy</string>
+        <key>PayloadOrganization</key>
+        <string>Emerson Collective</string>
+        <key>PayloadIdentifier</key>
+        <string>01C04641-6195-474D-B74F-3CEDE18F7429</string>
+        <key>PayloadDisplayName</key>
+        <string>Terminal Full Disk Access</string>
+        <key>PayloadDescription</key>
+        <string>Terminal Full Disk Access</string>
+        <key>PayloadVersion</key>
+        <integer>1</integer>
+        <key>PayloadEnabled</key>
+        <true/>
+        <key>Services</key>
+        <dict>
+          <key>SystemPolicyAllFiles</key>
+          <array>
+            <dict>
+              <key>Identifier</key>
+              <string>com.apple.Terminal</string>
+              <key>CodeRequirement</key>
+              <string>identifier "com.apple.Terminal" and anchor apple</string>
+              <key>IdentifierType</key>
+              <string>bundleID</string>
+              <key>StaticCode</key>
+              <false/>
+              <key>Allowed</key>
+              <true/>
+            </dict>
+          </array>
+        </dict>
+      </dict>
+    </array>
+  </dict>
+</plist>

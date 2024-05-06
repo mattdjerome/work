@@ -1,0 +1,34 @@
+#!/bin/sh
+
+#not to be ran as a policy
+
+jssURL="https://manage.emersoncollective.com"
+username="api_user"
+password="pPxoziH59Y2j1DASIoa0n1"
+
+IDS=$(/usr/bin/curl -H "Accept: text/xml" --user "$username":"$password" ${jssURL}/JSSResource/computers | xmllint --format - | awk -F'>|<' '/<id>/{print $3}')
+
+ea_name="Org_Site"
+
+for X in $IDS; do
+
+ea_value=$(curl -H "Accept: text/xml" -skfu $username:$password ${jssURL}/JSSResource/computers/id/${X} -X GET | xmllint --xpath 'computer/general/site/name/text()' - | xargs)
+
+# Create xml
+    cat << EOF > /private/tmp/ea.xml
+<computer>
+    <extension_attributes>
+        <extension_attribute>
+            <name>$ea_name</name>
+            <value>$ea_value</value>
+        </extension_attribute>
+    </extension_attributes>
+</computer>
+EOF
+
+# Upload the xml file
+curl -sfku "${username}":"${password}" "${jssURL}/JSSResource/computers/id/${X}" -T /private/tmp/ea.xml -X PUT
+
+    done
+
+exit 0

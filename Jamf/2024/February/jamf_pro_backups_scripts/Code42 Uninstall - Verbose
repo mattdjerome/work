@@ -1,0 +1,9 @@
+#!/bin/bash
+
+launchctl unload /Library/LaunchDaemons/com.code42.service.plist 
+chflags noschg /Applications/Code42.app
+chmod -R 755 "/Library/Application Support/CrashPlan/" 
+rm /Library/LaunchDaemons/com.code42.service.plist
+rm /Applications/Code42/
+rm /Library/Caches/CrashPlan/
+rm /Library/Application Support/CrashPlan/

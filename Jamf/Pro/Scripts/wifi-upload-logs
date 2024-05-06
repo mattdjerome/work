@@ -1,0 +1,25 @@
+#!/bin/bash
+
+authInfo=api_user:pPxoziH59Y2j1DASIoa0n1
+jamfURL="https://wjec-2a.cmdsec.com/JSSResource"
+getInXML=("-H" "accept: text/xml")
+sendInXML=("-H" "content-type: text/xml")
+makeItPretty="xmllint --format -"
+
+# Get serial #
+computerSerial=$(system_profiler SPHardwareDataType | awk '/Serial Number/{print $4}')
+
+# Get full computer record
+computerInventoryRecord=$(curl -sku $authInfo "${getInXML[@]}" $jamfURL/computers/serialnumber/$computerSerial)
+# echo $computerInventoryRecord
+# exit 0
+# Get computer ID
+computerID=$(echo $computerInventoryRecord | xmllint --xpath '/computer/general/id/text()' -)
+# echo $computerID
+
+# zip the syslog file
+zip -r "/tmp/wifi-$(date "+%Y-%m-%d%n").zip" "/var/log/wifi.log"
+
+curl -sku $authInfo $jamfURL/fileuploads/computers/id/$computerID -X POST -F name=@"/tmp/wifi-$(date "+%Y-%m-%d%n").zip"
+
+

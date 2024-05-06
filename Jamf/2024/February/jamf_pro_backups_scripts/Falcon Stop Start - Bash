@@ -1,0 +1,57 @@
+#!/bin/bash
+
+echo "Checking Command Line Tools for Xcode"
+# Only run if the tools are not installed yet
+# To check that try to print the SDK path
+xcode_path=$(xcode-select -p 2>/dev/null)
+if [[ $? -ne 0 ]]; then
+    echo "Command Line Tools for Xcode not found. Installing from softwareupdate…"
+    # This temporary file prompts the 'softwareupdate' utility to list the Command Line Tools
+    touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
+    output=$(softwareupdate -l)
+    prod_lines=($(echo "$output" | grep 'Command Line'))
+    latest_prod=${prod_lines[-1]#*\	}
+    softwareupdate -i "$latest_prod" --verbose
+else
+    echo "Command Line Tools for Xcode have been installed."
+fi
+
+# Stopping the Falcon service
+/Applications/Falcon.app/Contents/Resources/falconctl unload > /dev/null
+unload_code=$?
+echo "Unload Return Code is $unload_code."
+# Checks the return code. If it's 0, stopped successfully. Continuing to start the service.
+if [[ $unload_code -ne 0 ]]; then
+    echo "Sensor Unload Failure"
+else
+    echo "Sensor Unload Successful"
+    # Loads the sensor to restart the service.
+    /Applications/Falcon.app/Contents/Resources/falconctl load > /dev/null
+    load_code=$?
+    echo "Load Return Code is $load_code."
+    if [[ $load_code -ne 0 ]]; then
+        echo "Sensor Load Failure"
+    else
+        echo "Sensor Load Successful"
+        # If the return code for unload or load is not zero, the sensor is broken, JAMF will reinstall the sensor to attempt to fix.
+        if [[ $load_code -ne 0 || $unload_code -ne 0 ]]; then
+            echo "The unload return code was $unload_code and the load return was $load_code. A 0 means the task was successful and a 1 means it failed. Either task returning a 1 will trigger a reinstall of the falcon sensor from Jamf."
+            echo "Uninstalling the agent"
+            /Applications/Falcon.app/Contents/Resources/falconctl uninstall > /dev/null
+            jamf policy -trigger reinstall_falcon
+            reinstall_code=$?
+            if [[ $reinstall_code -ne 0 ]]; then
+                echo "Jamf reinstall of Falcon failed. Continue with manual falcon install. Exiting."
+                exit 1
+            else
+                echo "Falcon reinstall successful. Check the console to see if it's reporting."
+            fi
+        else
+            echo "The unload and load both returned an exit code of 0, meaning both tasks succeeded. Check the console to see if it's reporting correctly. It could take up to an hour to report in."
+        fi
+    fi
+fi
+
+# If it reaches here, everything went through successfully.
+echo "Process complete. Exiting."
+exit 0

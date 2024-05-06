@@ -1,0 +1,4 @@
+#!/bin/bash
+
+current_user=$(ls -l /dev/console | awk '{print $3}')
+mv /Library/EC/IT\ Onboarding\ handout.pdf /Users/$current_user/Desktop

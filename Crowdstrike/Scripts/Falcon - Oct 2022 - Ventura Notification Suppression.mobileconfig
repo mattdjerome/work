@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PayloadContent</key>
+	<array>
+		<dict>
+			<key>PayloadDisplayName</key>
+			<string>Service Management - Managed Login Items</string>
+			<key>PayloadIdentifier</key>
+			<string>com.apple.servicemanagement.D2CBD0C9-DFE6-4FCD-AA85-DBDD480EC031</string>
+			<key>PayloadType</key>
+			<string>com.apple.servicemanagement</string>
+			<key>PayloadUUID</key>
+			<string>93B5BEE0-B64D-45DA-BA33-DCC61E221672</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+			<key>Rules</key>
+			<array>
+				<dict>
+					<key>RuleType</key>
+					<string>BundleIdentifier</string>
+					<key>RuleValue</key>
+					<string>us.zoom.xos</string>
+				</dict>
+				<dict>
+					<key>RuleType</key>
+					<string>BundleIdentifier</string>
+					<key>RuleValue</key>
+					<string>com.backup42.desktop</string>
+				</dict>
+				<dict>
+					<key>RuleType</key>
+					<string>BundleIdentifier</string>
+					<key>RuleValue</key>
+					<string>com.jamfsoftware.selfservice.mac</string>
+				</dict>
+				<dict>
+					<key>RuleType</key>
+					<string>BundleIdentifier</string>
+					<key>RuleValue</key>
+					<string>com.crowdstrike.falcon.UserAgent</string>
+				</dict>
+				<dict>
+					<key>Comment</key>
+					<string>Crowdstrike Team Identifier</string>
+					<key>RuleType</key>
+					<string>TeamIdentifier</string>
+					<key>RuleValue</key>
+					<string>X9E956P446</string>
+				</dict>
+			</array>
+		</dict>
+	</array>
+	<key>PayloadDescription</key>
+	<string>Suppresses the notifications in login/background items for macOS Ventura</string>
+	<key>PayloadDisplayName</key>
+	<string>OS -Ventura Background Login Items</string>
+	<key>PayloadIdentifier</key>
+	<string>Matt-NMV419VWYX.93BF958C-9056-4A74-A8AB-9A6750DAF9BF</string>
+	<key>PayloadOrganization</key>
+	<string>Emerson Collective</string>
+	<key>PayloadRemovalDisallowed</key>
+	<true/>
+	<key>PayloadScope</key>
+	<string>System</string>
+	<key>PayloadType</key>
+	<string>Configuration</string>
+	<key>PayloadUUID</key>
+	<string>C910B60C-19EF-47C2-82A6-5B4362E93121</string>
+	<key>PayloadVersion</key>
+	<integer>1</integer>
+	<key>RemovalDate</key>
+	<date>2025-11-12T16:01:07Z</date>
+	<key>TargetDeviceType</key>
+	<integer>5</integer>
+</dict>
+</plist>

@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mobile_device>
+  <general>
+    <id>100</id>
+    <display_name>jamf300</display_name>
+    <device_name>jamf300</device_name>
+    <name>jamf300</name>
+    <asset_tag/>
+    <last_inventory_update>Tuesday, August 29 2023 at 9:17 PM</last_inventory_update>
+    <last_inventory_update_epoch>1693343842455</last_inventory_update_epoch>
+    <last_inventory_update_utc>2023-08-29T21:17:22.455+0000</last_inventory_update_utc>
+    <capacity>32768</capacity>
+    <capacity_mb>32768</capacity_mb>
+    <available>14218</available>
+    <available_mb>14218</available_mb>
+    <percentage_used>56</percentage_used>
+    <os_type>iOS</os_type>
+    <os_version>16.6</os_version>
+    <os_build>20G75</os_build>
+    <software_update_device_id>iPad7,5</software_update_device_id>
+    <serial_number>GG7XHD3DJF8J</serial_number>
+    <udid>858fa360a4e8c494ee4f4c492f1921f880babf79</udid>
+    <initial_entry_date_epoch>1693257245987</initial_entry_date_epoch>
+    <initial_entry_date_utc>2023-08-28T21:14:05.987+0000</initial_entry_date_utc>
+    <phone_number/>
+    <ip_address>76.72.82.180</ip_address>
+    <wifi_mac_address>58:E6:BA:71:94:A7</wifi_mac_address>
+    <bluetooth_mac_address>58:E6:BA:7B:2F:77</bluetooth_mac_address>
+    <modem_firmware/>
+    <model>iPad 6th Generation (Wi-Fi)</model>
+    <model_identifier>iPad7,5</model_identifier>
+    <model_number>MR7F2LL</model_number>
+    <modelDisplay deprecated="9.4">iPad 6th Generation (Wi-Fi)</modelDisplay>
+    <model_display>iPad 6th Generation (Wi-Fi)</model_display>
+    <device_ownership_level>Institutional</device_ownership_level>
+    <enrollment_method>User-initiated - no invitation</enrollment_method>
+    <last_enrollment_epoch>1693257403204</last_enrollment_epoch>
+    <last_enrollment_utc>2023-08-28T21:16:43.204+0000</last_enrollment_utc>
+    <mdm_profile_expiration_epoch>1756415802000</mdm_profile_expiration_epoch>
+    <mdm_profile_expiration_utc>2025-08-28T21:16:42.000+0000</mdm_profile_expiration_utc>
+    <managed>true</managed>
+    <supervised>true</supervised>
+    <exchange_activesync_device_identifier>S7BLA3HPTD3FF3HDTU5AV2AQDG</exchange_activesync_device_identifier>
+    <shared>No</shared>
+    <diagnostic_submission>Not Enabled</diagnostic_submission>
+    <app_analytics>Not Enabled</app_analytics>
+    <tethered/>
+    <battery_level>100</battery_level>
+    <ble_capable>false</ble_capable>
+    <device_locator_service_enabled>false</device_locator_service_enabled>
+    <do_not_disturb_enabled>false</do_not_disturb_enabled>
+    <cloud_backup_enabled>false</cloud_backup_enabled>
+    <last_cloud_backup_date_epoch>0</last_cloud_backup_date_epoch>
+    <last_cloud_backup_date_utc/>
+    <location_services_enabled>false</location_services_enabled>
+    <itunes_store_account_is_active>true</itunes_store_account_is_active>
+    <last_backup_time_epoch>0</last_backup_time_epoch>
+    <last_backup_time_utc/>
+    <site>
+      <id>1</id>
+      <name>Testing</name>
+    </site>
+  </general>
+  <location>
+    <username>kcox</username>
+    <realname>Kelly Cox</realname>
+    <real_name>Kelly Cox</real_name>
+    <email_address>kcox@any.org</email_address>
+    <position>Technical Account Manager - Strategic</position>
+    <phone>612-555-1405</phone>
+    <phone_number>612-555-1405</phone_number>
+    <department>Support</department>
+    <building>Minneapolis</building>
+    <room/>
+  </location>
+  <purchasing>
+    <is_purchased>true</is_purchased>
+    <is_leased>false</is_leased>
+    <po_number/>
+    <vendor/>
+    <applecare_id/>
+    <purchase_price/>
+    <purchasing_account/>
+    <po_date/>
+    <po_date_epoch>0</po_date_epoch>
+    <po_date_utc/>
+    <warranty_expires/>
+    <warranty_expires_epoch>0</warranty_expires_epoch>
+    <warranty_expires_utc/>
+    <lease_expires/>
+    <lease_expires_epoch>0</lease_expires_epoch>
+    <lease_expires_utc/>
+    <life_expectancy>0</life_expectancy>
+    <purchasing_contact/>
+    <attachments/>
+  </purchasing>
+  <applications>
+    <size>7</size>
+    <application>
+      <application_name>Facebook</application_name>
+      <application_version>508510735</application_version>
+      <application_short_version>429.2</application_short_version>
+      <application_status>Unmanaged</application_status>
+      <identifier>com.facebook.Facebook</identifier>
+    </application>
+    <application>
+      <application_name>Instagram</application_name>
+      <application_version>506769230</application_version>
+      <application_short_version>297.0</application_short_version>
+      <application_status>Unmanaged</application_status>
+      <identifier>com.burbn.instagram</identifier>
+    </application>
+    <application>
+      <application_name>Self Service</application_name>
+      <application_version>2023042601</application_version>
+      <application_short_version>11.1.1</application_short_version>
+      <application_status>Managed</application_status>
+      <identifier>com.jamfsoftware.selfservice</identifier>
+    </application>
+    <application>
+      <application_name>Slack</application_name>
+      <application_version>434718</application_version>
+      <application_short_version>23.08.40</application_short_version>
+      <application_status>Unmanaged</application_status>
+      <identifier>com.tinyspeck.chatlyio</identifier>
+    </application>
+    <application>
+      <application_name>Snapchat</application_name>
+      <application_version>12.49.0.51</application_version>
+      <application_short_version>12.49.0</application_short_version>
+      <application_status>Unmanaged</application_status>
+      <identifier>com.toyopagroup.picaboo</identifier>
+    </application>
+    <application>
+      <application_name>TikTok</application_name>
+      <application_version>308018</application_version>
+      <application_short_version>30.8.0</application_short_version>
+      <application_status>Unmanaged</application_status>
+      <identifier>com.zhiliaoapp.musically</identifier>
+    </application>
+    <application>
+      <application_name>VERO</application_name>
+      <application_version>7766</application_version>
+      <application_short_version>2.2.2</application_short_version>
+      <application_status>Unmanaged</application_status>
+      <identifier>co.vero.app</identifier>
+    </application>
+  </applications>
+  <security>
+    <data_protection>false</data_protection>
+    <block_level_encryption_capable>true</block_level_encryption_capable>
+    <file_level_encryption_capable>true</file_level_encryption_capable>
+    <passcode_present>false</passcode_present>
+    <passcode_compliant>true</passcode_compliant>
+    <passcode_compliant_with_profile>true</passcode_compliant_with_profile>
+    <passcode_lock_grace_period_enforced>Immediate</passcode_lock_grace_period_enforced>
+    <hardware_encryption>3</hardware_encryption>
+    <activation_lock_enabled>false</activation_lock_enabled>
+    <jailbreak_detected>Unknown</jailbreak_detected>
+  </security>
+  <network>
+    <home_carrier_network/>
+    <cellular_technology>None</cellular_technology>
+    <voice_roaming_enabled>No</voice_roaming_enabled>
+    <imei/>
+    <iccid/>
+    <meid/>
+    <current_carrier_network/>
+    <carrier_settings_version/>
+    <current_mobile_country_code/>
+    <current_mobile_network_code/>
+    <home_mobile_country_code/>
+    <home_mobile_network_code/>
+    <data_roaming_enabled>false</data_roaming_enabled>
+    <roaming>false</roaming>
+    <phone_number/>
+  </network>
+  <certificates>
+    <size>2</size>
+    <certificate>
+      <common_name>1CD592FF-BB39-41D7-8BA8-36159D113E8A</common_name>
+      <identity>true</identity>
+      <expires_utc>2025-08-28T21:16:42.000+0000</expires_utc>
+      <expires_epoch>1756415802000</expires_epoch>
+    </certificate>
+    <certificate>
+      <common_name>JSS JSS Built-in Certificate Authority</common_name>
+      <identity>false</identity>
+      <expires_utc>2025-10-19T15:55:31.000+0000</expires_utc>
+      <expires_epoch>1760889331000</expires_epoch>
+    </certificate>
+  </certificates>
+  <configuration_profiles>
+    <size>5</size>
+    <configuration_profile>
+      <display_name>MDM Profile</display_name>
+      <version>1</version>
+      <identifier>00000000-0000-0000-A000-4A414D460003</identifier>
+      <uuid>00000000-0000-0000-A000-4A414D460003</uuid>
+    </configuration_profile>
+    <configuration_profile>
+      <display_name>Mobile Notifications </display_name>
+      <version>1</version>
+      <identifier>60D8DFB9-BCA0-4267-8694-AB33C1F5350B</identifier>
+      <uuid>60D8DFB9-BCA0-4267-8694-AB33C1F5350B</uuid>
+    </configuration_profile>
+    <configuration_profile>
+      <display_name>TicTok, Instagram and Vero</display_name>
+      <version>1</version>
+      <identifier>C716489A-34B9-415F-9F90-8A48EE22C5DE</identifier>
+      <uuid>C716489A-34B9-415F-9F90-8A48EE22C5DE</uuid>
+    </configuration_profile>
+    <configuration_profile>
+      <display_name>USB Accessories while locked allowed</display_name>
+      <version>1</version>
+      <identifier>com.apple.configurator.usbrestrictedmode</identifier>
+      <uuid>69E1237C-FB30-4E70-830E-E09C5B6E2C3E</uuid>
+    </configuration_profile>
+    <configuration_profile>
+      <display_name>Web Clip</display_name>
+      <version>1</version>
+      <identifier>6A37E512-876A-469C-8811-93102BDE0C2A</identifier>
+      <uuid>6A37E512-876A-469C-8811-93102BDE0C2A</uuid>
+    </configuration_profile>
+  </configuration_profiles>
+  <provisioning_profiles>
+    <size>0</size>
+  </provisioning_profiles>
+  <mobile_device_groups>
+    <size>2</size>
+    <mobile_device_group>
+      <id>1</id>
+      <name>All Managed iPads</name>
+    </mobile_device_group>
+    <mobile_device_group>
+      <id>5</id>
+      <name>Supervised and self service installed</name>
+    </mobile_device_group>
+  </mobile_device_groups>
+  <extension_attributes>
+    <extension_attribute>
+      <id>1</id>
+      <name>Graduation year</name>
+      <type>String</type>
+      <multi_value>false</multi_value>
+      <value>2019</value>
+    </extension_attribute>
+    <extension_attribute>
+      <id>2</id>
+      <name>Tech agreement</name>
+      <type>String</type>
+      <multi_value>false</multi_value>
+      <value>Signed</value>
+    </extension_attribute>
+  </extension_attributes>
+</mobile_device>

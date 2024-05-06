@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+#
+#
+
+ls -la /private/
+
+if [[ ! -e /private/tmp ]]; then
+  #statements
+  /bin/mkdir /private/tmp
+  /bin/chmod 1777 /private/tmp
+fi
+
+
+ls -la /private/
+

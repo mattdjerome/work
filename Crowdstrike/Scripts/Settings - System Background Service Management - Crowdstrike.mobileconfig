@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/
+DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PayloadContent</key>
+	<array>
+		<dict>
+			<key>PayloadDescription</key>
+			<string>Suppress Crowdstrike Notifications</string>
+			<key>PayloadDisplayName</key>
+			<string>Settings - System Background Service Management - Crowdstrike</string>
+			<key>PayloadIdentifier</key>
+			<string>com.ec.servicemanagement.E41592DC-7B23-49FD-832F-03C53CCE6AF5.privacy.E41592DC-7B23-49FD-832F-03C53CCE6AF5</string>
+			<key>PayloadUUID</key>
+			<string>E41592DC-7B23-49FD-832F-03C53CCE6AF5</string>
+			<key>PayloadType</key>
+			<string>com.apple.servicemanagement</string>
+			<key>PayloadOrganization</key>
+			<string>Emerson Collective</string>
+			<key>Rules</key>
+				<array>
+					<dict>
+				        <key>RuleType</key>
+				        <string>TeamIdentifier</string>
+				        <key>RuleValue</key>
+				        <string>X9E956P446</string>
+				        <key>Comment</key>
+				        <string>CrowdStrike</string>
+				    </dict>
+					<dict>
+						<key>RuleType</key>
+						<string>BundleIdentifier</string>
+						<key>RuleValue</key>
+						<string>com.crowdstrike.falcon.UserAgent</string>
+						<key>Comment</key>
+						<string>Crowdstrike Falcon UserAgent BundleID</string>
+					</dict>
+				</array>
+			</dict>
+		</array>
+	<key>PayloadDisplayName</key>
+	<string>Settings - System Background Service Management - Crowdstrike</string>
+	<key>PayloadIdentifier</key>
+	<string>com.ec.servicemanagement.E41592DC-7B23-49FD-832F-03C53CCE6AF5.privacy</string>
+	<key>PayloadUUID</key>
+	<string>E41592DC-7B23-49FD-832F-03C53CCE6AF5</string>
+	<key>PayloadType</key>
+	<string>Configuration</string>
+	<key>PayloadScope</key>
+	<string>System</string>
+</dict>
+</plist>

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+hdiutil attach /Library/Application\ Support/JAMF/Waiting\ Room/Install\ macOS\ Big\ Sur.dmg
+cp -R /Volumes/Install\ macOS\ Big\ Sur/Applications/Install\ macOS\ Big\ Sur.app /Applications
+echo $?
+hdiutil detach /Volumes/Install\ macOS\ Big\ Sur/
+exit

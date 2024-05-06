@@ -1,0 +1,12 @@
+#!/bin/bash
+
+
+# Enables app store apps to auto update as well as os updates to auto restart the computer
+
+
+# App store app auto update
+defaults write /Library/Preferences/com.apple.commerce.plist AutoUpdate -bool true
+
+# OS updates can reboot the system if they need to.
+defaults write /Library/Preferences/com.apple.commerce.plist AutoUpdateRestartRequired -bool true
+

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+
+lpadmin -x "EC_3rd_Floor_HP_Printer_M401dw"
+lpadmin -x "HP_Color_LaserJet_MFP_M477fdw__437532_"
+lpadmin -x "HP_Color_LaserJet_MFP_M477fdw__437532____Fax"
+
+lpstat -p

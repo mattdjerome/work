@@ -1,0 +1,191 @@
+#!/bin/bash
+## Description: Checks for global preferences file and populates  
+## it with the default portal if needed.
+## Body ###########################################################
+## Declare Variables ##############################################
+ 
+# Get current Console user
+active_user=$( stat -f "%Su" /dev/console )
+
+# Global Prefs File
+gPrefs=/Library/Preferences/com.paloaltonetworks.GlobalProtect.settings.plist
+ 
+# User Prefs File
+uPrefs=/Users/${active_user}/Library/Preferences/com.paloaltonetworks.GlobalProtect.client.plist
+ 
+## Logic ##########################################################
+
+# Check to see if the global preference file already exists...
+if [[ -e $gPrefs ]]; then
+	echo "Default global portal already exists. Skipping."
+else
+	echo "Setting default global portal to: vpn.emersoncollective.tech"
+     # If it does not already exist, create it and populate the default portal using the echo command
+       echo '<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Palo Alto Networks</key>
+    <dict>
+        <key>GlobalProtect</key>
+        <dict>
+			<key>DEM</key>
+			<dict>
+				<key>user-selection</key>
+				<string>disable</string>
+			</dict>
+			<key>PanGPS</key>
+			<dict>
+				<key>LastHipSendTime</key>
+				<integer>1699480109</integer>
+				<key>LastLogoutTime</key>
+				<integer>1699479995</integer>
+				<key>PanPortalCfg_5dce3897f8b1def43b6d58564adebc1.dat</key>
+				<data>
+				wfg4hh7hTK6RgFSBTbJBN5tmw48=
+				</data>
+				<key>PreferredIPV6_fbcc9ec3fdc6e7c68ec1bc4eb19d27b</key>
+				<string></string>
+				<key>PreferredIP_fbcc9ec3fdc6e7c68ec1bc4eb19d27b</key>
+				<string>10.7.31.7</string>
+				<key>UserProfileType</key>
+				<integer>0</integer>
+				<key>dem-on-off-status</key>
+				<string>dem-admin-disable</string>
+				<key>dem-on-off-time</key>
+				<string>1699480100</string>
+				<key>disable-globalprotect</key>
+				<integer>0</integer>
+			</dict>
+			<key>PanSetup</key>
+			<dict>
+				<key>Portal</key>
+				<string>vpn.emersoncollective.tech</string>
+				<key>Prelogon</key>
+				<string>0</string>
+			</dict>
+			<key>Settings</key>
+			<dict>
+				<key>allow-traffic-blocking-notification-dismissal</key>
+				<string>yes</string>
+				<key>captive-portal-detection-msg</key>
+				<string>&lt;div style="font-family:'Helvetica Neue';"&gt;&lt;h1 style="color:red;text-align:center; margin: 0; font-size: 30px;"&gt;Captive Portal Detected&lt;/h1&gt;&lt;p style="margin: 0; font-size: 15px; line-height: 1.2em;"&gt;GlobalProtect has temporarily permitted network access for you to connect to the Internet. Follow instructions from your internet provider.&lt;/p&gt;&lt;p style="margin: 0; font-size: 15px; line-height: 1.2em;"&gt;If you let the connection time out, open GlobalProtect and click Connect to try again.&lt;/p&gt;&lt;/div&gt;</string>
+				<key>captive-portal-exception-timeout</key>
+				<string>0</string>
+				<key>captive-portal-login-url</key>
+				<string>No</string>
+				<key>captive-portal-notification-delay</key>
+				<string>5</string>
+				<key>certificate-store-lookup</key>
+				<string>user-and-machine</string>
+				<key>change-password-message</key>
+				<string></string>
+				<key>connect-timeout</key>
+				<integer>60</integer>
+				<key>dem-agent</key>
+				<string>not-install</string>
+				<key>disable-globalprotect</key>
+				<integer>0</integer>
+				<key>display-captive-portal-detection-msg</key>
+				<string>no</string>
+				<key>display-traffic-blocking-notification-msg</key>
+				<string>yes</string>
+				<key>enforce-globalprotect</key>
+				<string>no</string>
+				<key>enforcer-exception-application</key>
+				<string></string>
+				<key>enforcer-exception-list</key>
+				<string>vpn.emersoncollective.tech</string>
+				<key>enforcer-exception-list-domain</key>
+				<string>vpn.emersoncollective.tech</string>
+				<key>ext-key-usage-oid-for-client-cert</key>
+				<string></string>
+				<key>ipv6-preferred</key>
+				<string>no</string>
+				<key>krb-auth-fail-fallback</key>
+				<string>yes</string>
+				<key>logout-remove-sso</key>
+				<string>yes</string>
+				<key>on-demand</key>
+				<string>yes</string>
+				<key>override-cc-username</key>
+				<string>no</string>
+				<key>portal-timeout</key>
+				<integer>30</integer>
+				<key>receive-timeout</key>
+				<integer>30</integer>
+				<key>regioncode</key>
+				<string>US</string>
+				<key>retain-connection-smartcard-removal</key>
+				<string>yes</string>
+				<key>split-tunnel-option</key>
+				<string>both</string>
+				<key>traffic-blocking-notification-delay</key>
+				<string>15</string>
+				<key>traffic-blocking-notification-msg</key>
+				<string>&lt;div style="font-family:'Helvetica Neue';"&gt;&lt;h1 style="color:red;text-align:center; margin: 0; font-size: 30px;"&gt;Notice&lt;/h1&gt;&lt;p style="margin: 0;font-size: 15px; line-height: 1.2em;"&gt;To access the network, you must first connect to GlobalProtect.&lt;/p&gt;&lt;/div&gt;</string>
+				<key>traffic-enforcement</key>
+				<string>no</string>
+				<key>use-proxy</key>
+				<string>yes</string>
+				<key>use-sso-pin</key>
+				<string>no</string>
+			</dict>
+		</dict>
+    </dict>
+</dict>
+</plist>
+' > $gPrefs
+echo $?
+	# Kill the Preference caching daemon to prevent it from overwriting any changes
+	killall cfprefsd
+	echo $?
+fi
+
+# Check to see if the user preference file already exists...
+if [[ -e $uPrefs ]]; then
+	echo "Default global portal user prefs already exists. Skipping."
+else
+echo "Setting default user portal to: vpn.emersoncollective.tech in GPA"
+# If it does not already exist, create it and populate the default portal using the echo command
+echo '<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+       <key>PanPortalList</key>
+       <array>
+               <string>vpn.emersoncollective.tech</string>
+               <string>vpn-ny.emersoncollective.tech</string>
+       </array>
+       <key>WebKitCacheModelPreferenceKey</key>
+	   <integer>1</integer>
+	   <key>WebKitWebGLEnabled</key>
+	   <false/>
+       <key>connect-method</key>
+	   <string>on-demand</string>
+	   <key>default-browser</key>
+	   <string>yes</string>
+</dict>
+</plist>
+' > $uPrefs
+echo $?
+
+# Kill the Preference caching daemon to prevent it from overwriting any changes
+killall cfprefsd
+echo $?
+
+# Assign ownership of the user preference file to the signed in user
+chown $active_user $uPrefs
+echo $?
+
+#convert plist files from binary to xml format
+plutil -convert xml1 $uPrefs
+echo $?
+
+#restart GlobalProtect
+pkill GlobalProtect
+echo $?
+ 
+fi
+# Check exit code.
+exit $?

@@ -1,0 +1,32 @@
+#!/bin/bash
+
+authInfo=api_user:pPxoziH59Y2j1DASIoa0n1
+jamfURL="https://wjec-2a.cmdsec.com/JSSResource"
+getInXML=("-H" "accept: text/xml")
+sendInXML=("-H" "content-type: text/xml")
+makeItPretty="xmllint --format -"
+GUI_USER=$(who | grep console | grep -v '_mbsetupuser' | awk '{print $1}')
+
+# Get serial #
+computerSerial=$(system_profiler SPHardwareDataType | awk '/Serial Number/{print $4}')
+
+# Get full computer record
+computerInventoryRecord=$(curl -sku $authInfo "${getInXML[@]}" $jamfURL/computers/serialnumber/$computerSerial)
+# echo $computerInventoryRecord
+# exit 0
+# Get computer ID
+computerID=$(echo $computerInventoryRecord | xmllint --xpath '/computer/general/id/text()' -)
+# echo $computerID
+
+# zip the syslog file
+zip -r "/tmp/crashplan_$computerSerial-$(date "+%Y-%m-%d%n").zip" "/Library/Logs/CrashPlan/"
+zip -r "/tmp/crashplan_gui_$computerSerial-$(date "+%Y-%m-%d%n").zip" "/Users/$GUI_USER/Library/Logs/CrashPlan/"
+
+
+curl -sku $authInfo $jamfURL/fileuploads/computers/id/$computerID -X POST -F name=@"/tmp/crashplan_$computerSerial-$(date "+%Y-%m-%d%n").zip"
+curl -sku $authInfo $jamfURL/fileuploads/computers/id/$computerID -X POST -F name=@"/tmp/crashplan_gui_$computerSerial-$(date "+%Y-%m-%d%n").zip"
+
+# mdls "/Users/kasiana/Library//Containers/com.apple.QuickTimePlayerX/Data/Library/Autosave Information" | egrep '(kMDItemDisplayName)|(kMDItemFSCreationDate)'
+
+#  osascript -e 'display dialog "Please reboot your computer as soon as possible" buttons {"OK"} default button 1'
+

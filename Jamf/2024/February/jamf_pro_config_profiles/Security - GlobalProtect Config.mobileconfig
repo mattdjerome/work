@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1">
+  <dict>
+    <key>PayloadUUID</key>
+    <string>1C831775-9613-4C18-B635-43F1B7A35803</string>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadOrganization</key>
+    <string>Emerson Collective</string>
+    <key>PayloadIdentifier</key>
+    <string>1C831775-9613-4C18-B635-43F1B7A35803</string>
+    <key>PayloadDisplayName</key>
+    <string>Security - GlobalProtect Config</string>
+    <key>PayloadDescription</key>
+    <string/>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
+    <key>PayloadEnabled</key>
+    <true/>
+    <key>PayloadRemovalDisallowed</key>
+    <true/>
+    <key>PayloadScope</key>
+    <string>System</string>
+    <key>PayloadContent</key>
+    <array>
+      <dict>
+        <key>PayloadUUID</key>
+        <string>A827B023-8C2B-4364-8ACD-95F9173C5F23</string>
+        <key>PayloadType</key>
+        <string>com.apple.system-extension-policy</string>
+        <key>PayloadOrganization</key>
+        <string>Emerson Collective</string>
+        <key>PayloadIdentifier</key>
+        <string>A827B023-8C2B-4364-8ACD-95F9173C5F23</string>
+        <key>PayloadDisplayName</key>
+        <string>System Extensions</string>
+        <key>PayloadDescription</key>
+        <string/>
+        <key>PayloadVersion</key>
+        <integer>1</integer>
+        <key>PayloadEnabled</key>
+        <true/>
+        <key>AllowUserOverrides</key>
+        <true/>
+        <key>AllowedSystemExtensions</key>
+        <dict>
+          <key>PXPZ95SK77</key>
+          <array>
+            <string>com.paloaltonetworks.GlobalProtect.client.extension</string>
+            <string>com.paloaltonetworks.traps.networkextension</string>
+            <string>com.paloaltonetworks.traps.securityextension</string>
+          </array>
+        </dict>
+      </dict>
+    </array>
+  </dict>
+</plist>

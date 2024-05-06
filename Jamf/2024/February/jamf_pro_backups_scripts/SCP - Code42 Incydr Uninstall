@@ -1,0 +1,6 @@
+#!/bin/bash
+#For some reason, the service must be started before it's uninstalled
+
+launchctl start 9YV9435DHD.com.code42.agent.extension
+/Applications/Code42-AAT.app/Contents/MacOS/code42-aat-cli uninstall
+

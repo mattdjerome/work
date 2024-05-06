@@ -1,0 +1,80 @@
+#!/bin/bash
+##################################################################
+#: Date Created  : (April 02, 2020)
+#: Author        : Daniel Griggs
+#: Email         : dan@cmdsec.com
+#: Version       : 0.10
+##################################################################
+
+
+######################
+### VARIABLE BLOCK ###
+######################
+# OS_VER=$(sw_vers -productVersion | cut -d. -f1,2) # (if 10.10.3) returns 10.10
+# USERS=$(dscl . list /users shell | egrep -v '(^_)|(root)|(/usr/bin/false)' | awk '{print $1}')
+# MGMT_USER=""
+# JAMF_HELPER="/Library/Application Support/JAMF/bin/jamfHelper.app/Contents/MacOS/jamfHelper"
+# ICON_PATH="/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/"
+# SCRIPT_NAME=$( echo ${0##*\/} | cut -d. -f1 )
+GUI_USER=$(who | grep console | grep -v '_mbsetupuser' | awk '{print $1}') 
+######################
+# END VARIABLE BLOCK #
+######################
+#
+#
+#
+######################
+### FUNCTIONS BLOCK ###
+######################
+# cleanup_finish(){
+#   echo "Starting cleanup_finish"
+
+# }
+# trap cleanup_finish EXIT
+
+send_user_notification_center_message(){
+  messageText="$1"
+
+  managementAppPath="/Library/Application Support/JAMF/bin/Management Action.app/Contents/MacOS/Management Action"
+  "$managementAppPath" -message "$messageText"
+}
+
+######################
+# END FUNCTIONS BLOCK #
+######################
+echo "sudo"
+sudo -inu "$GUI_USER" tccutil reset us.zoom.xos
+echo "su"
+su -l "$GUI_USER" -c 'tccutil reset us.zoom.xos'
+
+if [[ $? == 0 ]]; then
+  #statements
+  echo "success"
+  send_user_notification_center_message "Successfully reset Zoom's access permissions"
+else
+  send_user_notification_center_message "FAILED: Couldn't reset Zoom's access permissions, please contact IT"
+fi
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#end
+

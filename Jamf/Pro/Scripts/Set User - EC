@@ -1,0 +1,16 @@
+#!/bin/sh
+
+currentUser=$(stat -f "%Su" /dev/console)
+echo "Current User is $currentUser"
+echo "Adding email domain to user name."
+full_email=$currentUser"@emersoncollective.com"
+echo "Fully qualified email is $full_email"
+echo "Submitting full inventory to update user name."
+jamf recon -endUsername $currentUser
+if [ $? == 0 ]; then
+	echo "Updated inventory submitted"
+else
+	echo "An error occured."
+fi
+
+

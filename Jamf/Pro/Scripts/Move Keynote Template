@@ -1,0 +1,4 @@
+#!/bin/bash
+
+currentUser=`ls -l /dev/console | awk '{ print $3 }'`
+cp /Library/Application\ Support/EC/EC\ Presentation\ Template\ 2020.kth /Users/$currentUser/Desktop/

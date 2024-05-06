@@ -1,0 +1,878 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<computer>
+  <general>
+    <id>100</id>
+    <name>jamfPresio</name>
+    <network_adapter_type>IEEE80211</network_adapter_type>
+    <mac_address>C4:91:0C:B4:1C:C3</mac_address>
+    <alt_network_adapter_type>Ethernet</alt_network_adapter_type>
+    <alt_mac_address>36:FB:51:DB:F2:00</alt_mac_address>
+    <ip_address>76.72.82.180</ip_address>
+    <last_reported_ip>192.168.4.206</last_reported_ip>
+    <serial_number>C02DP2QGQ05N</serial_number>
+    <udid>807B2928-4251-514F-9F12-67F27ED264BC</udid>
+    <jamf_version>10.42.1-t1667311080</jamf_version>
+    <platform>Mac</platform>
+    <barcode_1/>
+    <barcode_2/>
+    <asset_tag/>
+    <remote_management>
+      <managed>true</managed>
+      <management_username>jamfmanage</management_username>
+      <management_password_sha256>********************</management_password_sha256>
+    </remote_management>
+    <supervised>true</supervised>
+    <mdm_capable>true</mdm_capable>
+    <mdm_capable_users>
+      <mdm_capable_user>localadmin</mdm_capable_user>
+    </mdm_capable_users>
+    <management_status>
+      <enrolled_via_dep>false</enrolled_via_dep>
+      <user_approved_enrollment deprecated="10.4.0">true</user_approved_enrollment>
+      <user_approved_mdm since="10.4.0">true</user_approved_mdm>
+    </management_status>
+    <report_date>2023-08-29 20:48:52</report_date>
+    <report_date_epoch>1693342132509</report_date_epoch>
+    <report_date_utc>2023-08-29T20:48:52.509+0000</report_date_utc>
+    <last_contact_time>2023-08-30 16:39:01</last_contact_time>
+    <last_contact_time_epoch>1693413541321</last_contact_time_epoch>
+    <last_contact_time_utc>2023-08-30T16:39:01.321+0000</last_contact_time_utc>
+    <initial_entry_date>2023-08-28</initial_entry_date>
+    <initial_entry_date_epoch>1693257545918</initial_entry_date_epoch>
+    <initial_entry_date_utc>2023-08-28T21:19:05.918+0000</initial_entry_date_utc>
+    <last_cloud_backup_date_epoch>0</last_cloud_backup_date_epoch>
+    <last_cloud_backup_date_utc/>
+    <last_enrolled_date_epoch>1693257573842</last_enrolled_date_epoch>
+    <last_enrolled_date_utc>2023-08-28T21:19:33.842+0000</last_enrolled_date_utc>
+    <mdm_profile_expiration_epoch>1756415956000</mdm_profile_expiration_epoch>
+    <mdm_profile_expiration_utc>2025-08-28T21:19:16.000+0000</mdm_profile_expiration_utc>
+    <distribution_point/>
+    <sus/>
+    <site>
+      <id>3</id>
+      <name>Staging</name>
+    </site>
+    <itunes_store_account_is_active>true</itunes_store_account_is_active>
+  </general>
+  <location>
+    <username>kcox</username>
+    <realname>Kelly Cox</realname>
+    <real_name>Kelly Cox</real_name>
+    <email_address>kcox@any.org</email_address>
+    <position>Technical Account Manager - Strategic</position>
+    <phone>612-555-1405</phone>
+    <phone_number>612-555-1405</phone_number>
+    <department>Support</department>
+    <building>Minneapolis</building>
+    <room/>
+  </location>
+  <purchasing>
+    <is_purchased>true</is_purchased>
+    <is_leased>false</is_leased>
+    <po_number/>
+    <vendor/>
+    <applecare_id/>
+    <purchase_price/>
+    <purchasing_account/>
+    <po_date/>
+    <po_date_epoch>0</po_date_epoch>
+    <po_date_utc/>
+    <warranty_expires/>
+    <warranty_expires_epoch>0</warranty_expires_epoch>
+    <warranty_expires_utc/>
+    <lease_expires/>
+    <lease_expires_epoch>0</lease_expires_epoch>
+    <lease_expires_utc/>
+    <life_expectancy>0</life_expectancy>
+    <purchasing_contact/>
+    <os_applecare_id/>
+    <os_maintenance_expires/>
+    <attachments/>
+  </purchasing>
+  <peripherals>
+    <size>0</size>
+  </peripherals>
+  <hardware>
+    <make>Apple</make>
+    <model>MacBook Pro (13-inch, M1, 2020)</model>
+    <model_identifier>MacBookPro17,1</model_identifier>
+    <os_name>macOS</os_name>
+    <os_version>13.4</os_version>
+    <os_build>22F66</os_build>
+    <software_update_device_id>J293AP</software_update_device_id>
+    <active_directory_status>Not Bound</active_directory_status>
+    <service_pack/>
+    <processor_type>Apple M1</processor_type>
+    <is_apple_silicon>true</is_apple_silicon>
+    <processor_architecture>arm64</processor_architecture>
+    <processor_speed>0</processor_speed>
+    <processor_speed_mhz>0</processor_speed_mhz>
+    <number_processors>1</number_processors>
+    <number_cores>8</number_cores>
+    <total_ram>16384</total_ram>
+    <total_ram_mb>16384</total_ram_mb>
+    <boot_rom>8422.121.1</boot_rom>
+    <bus_speed>0</bus_speed>
+    <bus_speed_mhz>0</bus_speed_mhz>
+    <battery_capacity>1</battery_capacity>
+    <cache_size>0</cache_size>
+    <cache_size_kb>0</cache_size_kb>
+    <available_ram_slots>0</available_ram_slots>
+    <optical_drive/>
+    <nic_speed>10/100/1000</nic_speed>
+    <smc_version/>
+    <ble_capable>false</ble_capable>
+    <supports_ios_app_installs>true</supports_ios_app_installs>
+    <sip_status>Enabled</sip_status>
+    <gatekeeper_status>App Store and identified developers</gatekeeper_status>
+    <xprotect_version>2169</xprotect_version>
+    <institutional_recovery_key>Not Present</institutional_recovery_key>
+    <disk_encryption_configuration/>
+    <filevault2_users>
+      <user>localadmin</user>
+    </filevault2_users>
+    <storage>
+      <device>
+        <disk>disk0</disk>
+        <model>APPLE SSD AP2048Q</model>
+        <revision>874.120.</revision>
+        <serial_number>0ba0108984089a30</serial_number>
+        <size>2001111</size>
+        <drive_capacity_mb>2001111</drive_capacity_mb>
+        <connection_type>NO</connection_type>
+        <smart_status>Verified</smart_status>
+        <partitions>
+          <partition>
+            <name>Data</name>
+            <size>1995217</size>
+            <type>other</type>
+            <partition_capacity_mb>1995217</partition_capacity_mb>
+            <percentage_full>1</percentage_full>
+            <available_mb>1972403</available_mb>
+            <filevault_status>Not Encrypted</filevault_status>
+            <filevault_percent>0</filevault_percent>
+            <filevault2_status>Not Encrypted</filevault2_status>
+            <filevault2_percent>0</filevault2_percent>
+          </partition>
+          <partition>
+            <name>Update</name>
+            <size>1995217</size>
+            <type>other</type>
+            <partition_capacity_mb>1995217</partition_capacity_mb>
+            <percentage_full>1</percentage_full>
+            <available_mb>1972403</available_mb>
+            <filevault_status>Not Encrypted</filevault_status>
+            <filevault_percent>0</filevault_percent>
+            <filevault2_status>Not Encrypted</filevault2_status>
+            <filevault2_percent>0</filevault2_percent>
+          </partition>
+          <partition>
+            <name>xarts</name>
+            <size>524</size>
+            <type>other</type>
+            <partition_capacity_mb>524</partition_capacity_mb>
+            <percentage_full>2</percentage_full>
+            <available_mb>505</available_mb>
+            <filevault_status>Not Encrypted</filevault_status>
+            <filevault_percent>0</filevault_percent>
+            <filevault2_status>Not Encrypted</filevault2_status>
+            <filevault2_percent>0</filevault2_percent>
+          </partition>
+          <partition>
+            <name>Preboot</name>
+            <size>1995217</size>
+            <type>other</type>
+            <partition_capacity_mb>1995217</partition_capacity_mb>
+            <percentage_full>1</percentage_full>
+            <available_mb>1972403</available_mb>
+            <filevault_status>Not Encrypted</filevault_status>
+            <filevault_percent>0</filevault_percent>
+            <filevault2_status>Not Encrypted</filevault2_status>
+            <filevault2_percent>0</filevault2_percent>
+          </partition>
+          <partition>
+            <name>Macintosh HD (Boot Partition)</name>
+            <size>1995217</size>
+            <type>boot</type>
+            <partition_capacity_mb>1995217</partition_capacity_mb>
+            <percentage_full>1</percentage_full>
+            <available_mb>1972403</available_mb>
+            <filevault_status>Not Encrypted</filevault_status>
+            <filevault_percent>0</filevault_percent>
+            <filevault2_status>Not Encrypted</filevault2_status>
+            <filevault2_percent>0</filevault2_percent>
+            <boot_drive_available_mb>1972403</boot_drive_available_mb>
+            <lvgUUID/>
+            <lvUUID/>
+            <pvUUID/>
+          </partition>
+          <partition>
+            <name>Hardware</name>
+            <size>524</size>
+            <type>other</type>
+            <partition_capacity_mb>524</partition_capacity_mb>
+            <percentage_full>1</percentage_full>
+            <available_mb>505</available_mb>
+            <filevault_status>Not Encrypted</filevault_status>
+            <filevault_percent>0</filevault_percent>
+            <filevault2_status>Not Encrypted</filevault2_status>
+            <filevault2_percent>0</filevault2_percent>
+          </partition>
+          <partition>
+            <name>VM</name>
+            <size>1995217</size>
+            <type>other</type>
+            <partition_capacity_mb>1995217</partition_capacity_mb>
+            <percentage_full>1</percentage_full>
+            <available_mb>1972403</available_mb>
+            <filevault_status>Not Encrypted</filevault_status>
+            <filevault_percent>0</filevault_percent>
+            <filevault2_status>Not Encrypted</filevault2_status>
+            <filevault2_percent>0</filevault2_percent>
+          </partition>
+          <partition>
+            <name>iSCPreboot</name>
+            <size>524</size>
+            <type>other</type>
+            <partition_capacity_mb>524</partition_capacity_mb>
+            <percentage_full>2</percentage_full>
+            <available_mb>505</available_mb>
+            <filevault_status>Not Encrypted</filevault_status>
+            <filevault_percent>0</filevault_percent>
+            <filevault2_status>Not Encrypted</filevault2_status>
+            <filevault2_percent>0</filevault2_percent>
+          </partition>
+        </partitions>
+      </device>
+    </storage>
+    <mapped_printers/>
+  </hardware>
+  <certificates>
+    <certificate>
+      <common_name>com.apple.kerberos.kdc</common_name>
+      <identity>true</identity>
+      <expires_utc>2043-08-13T12:00:10.000+0000</expires_utc>
+      <expires_epoch>2323080010000</expires_epoch>
+      <name/>
+    </certificate>
+    <certificate>
+      <common_name>com.apple.systemdefault</common_name>
+      <identity>true</identity>
+      <expires_utc>2043-08-13T12:00:08.000+0000</expires_utc>
+      <expires_epoch>2323080008000</expires_epoch>
+      <name/>
+    </certificate>
+    <certificate>
+      <common_name>05901EBC-E3AA-46AF-9571-1128F3EC2515</common_name>
+      <identity>true</identity>
+      <expires_utc>2025-08-28T21:19:16.000+0000</expires_utc>
+      <expires_epoch>1756415956000</expires_epoch>
+      <name/>
+    </certificate>
+    <certificate>
+      <common_name>JSS Built-In Signing Certificate</common_name>
+      <identity>false</identity>
+      <expires_utc>2028-08-24T02:07:18.000+0000</expires_utc>
+      <expires_epoch>1850695638000</expires_epoch>
+      <name/>
+    </certificate>
+    <certificate>
+      <common_name>JSS JSS Built-in Certificate Authority</common_name>
+      <identity>false</identity>
+      <expires_utc>2025-10-19T15:55:31.000+0000</expires_utc>
+      <expires_epoch>1760889331000</expires_epoch>
+      <name/>
+    </certificate>
+  </certificates>
+  <security>
+    <activation_lock>false</activation_lock>
+    <recovery_lock_enabled>false</recovery_lock_enabled>
+    <secure_boot_level>full</secure_boot_level>
+    <external_boot_level>allowed</external_boot_level>
+    <firewall_enabled>false</firewall_enabled>
+  </security>
+  <software>
+    <unix_executables/>
+    <licensed_software/>
+    <installed_by_casper/>
+    <installed_by_installer_swu>
+      <package>com.apple.files.data-template</package>
+      <package>com.apple.pkg.Keynote13</package>
+      <package>com.apple.pkg.MRTConfigData_10_15.16U4211</package>
+      <package>com.apple.pkg.RosettaUpdateAuto</package>
+      <package>com.apple.pkg.XProtectPayloads_10_15.16U4263</package>
+      <package>com.apple.pkg.XProtectPlistConfigData_10_15.16U4256</package>
+      <package>com.fiplab.smartcountdowntimer</package>
+      <package>com.jamf.training.resources</package>
+      <package>com.jamfsoftware.osxenrollment</package>
+      <package>com.jamfsoftware.selfservice.mac</package>
+      <package>us.zoom.pkg.videomeeting</package>
+    </installed_by_installer_swu>
+    <cached_by_casper/>
+    <available_software_updates/>
+    <available_updates/>
+    <running_services/>
+    <applications>
+      <size>62</size>
+      <application>
+        <name>Activity Monitor.app</name>
+        <path>/System/Applications/Utilities/Activity Monitor.app</path>
+        <version>10.14</version>
+        <bundle_id>com.apple.ActivityMonitor</bundle_id>
+      </application>
+      <application>
+        <name>AirPort Utility.app</name>
+        <path>/System/Applications/Utilities/AirPort Utility.app</path>
+        <version>6.3.9</version>
+        <bundle_id>com.apple.airport.airportutility</bundle_id>
+      </application>
+      <application>
+        <name>App Store.app</name>
+        <path>/System/Applications/App Store.app</path>
+        <version>3.0</version>
+        <bundle_id>com.apple.AppStore</bundle_id>
+      </application>
+      <application>
+        <name>Audio MIDI Setup.app</name>
+        <path>/System/Applications/Utilities/Audio MIDI Setup.app</path>
+        <version>3.5</version>
+        <bundle_id>com.apple.audio.AudioMIDISetup</bundle_id>
+      </application>
+      <application>
+        <name>Automator.app</name>
+        <path>/System/Applications/Automator.app</path>
+        <version>2.10</version>
+        <bundle_id>com.apple.Automator</bundle_id>
+      </application>
+      <application>
+        <name>Bluetooth File Exchange.app</name>
+        <path>/System/Applications/Utilities/Bluetooth File Exchange.app</path>
+        <version>9.0</version>
+        <bundle_id>com.apple.BluetoothFileExchange</bundle_id>
+      </application>
+      <application>
+        <name>Books.app</name>
+        <path>/System/Applications/Books.app</path>
+        <version>5.2</version>
+        <bundle_id>com.apple.iBooksX</bundle_id>
+      </application>
+      <application>
+        <name>Boot Camp Assistant.app</name>
+        <path>/System/Applications/Utilities/Boot Camp Assistant.app</path>
+        <version>6.1.0</version>
+        <bundle_id>com.apple.bootcampassistant</bundle_id>
+      </application>
+      <application>
+        <name>Calculator.app</name>
+        <path>/System/Applications/Calculator.app</path>
+        <version>10.16</version>
+        <bundle_id>com.apple.calculator</bundle_id>
+      </application>
+      <application>
+        <name>Calendar.app</name>
+        <path>/System/Applications/Calendar.app</path>
+        <version>13.0</version>
+        <bundle_id>com.apple.iCal</bundle_id>
+      </application>
+      <application>
+        <name>Chess.app</name>
+        <path>/System/Applications/Chess.app</path>
+        <version>3.18</version>
+        <bundle_id>com.apple.Chess</bundle_id>
+      </application>
+      <application>
+        <name>Clock.app</name>
+        <path>/System/Applications/Clock.app</path>
+        <version>1.0</version>
+        <bundle_id>com.apple.clock</bundle_id>
+      </application>
+      <application>
+        <name>CodeRunner.app</name>
+        <path>/Applications/CodeRunner.app</path>
+        <version>4.2.2</version>
+        <bundle_id>com.krill.CodeRunner</bundle_id>
+      </application>
+      <application>
+        <name>ColorSync Utility.app</name>
+        <path>/System/Applications/Utilities/ColorSync Utility.app</path>
+        <version>12.0.0</version>
+        <bundle_id>com.apple.ColorSyncUtility</bundle_id>
+      </application>
+      <application>
+        <name>Console.app</name>
+        <path>/System/Applications/Utilities/Console.app</path>
+        <version>1.1</version>
+        <bundle_id>com.apple.Console</bundle_id>
+      </application>
+      <application>
+        <name>Contacts.app</name>
+        <path>/System/Applications/Contacts.app</path>
+        <version>2539.10</version>
+        <bundle_id>com.apple.AddressBook</bundle_id>
+      </application>
+      <application>
+        <name>Dictionary.app</name>
+        <path>/System/Applications/Dictionary.app</path>
+        <version>2.3.0</version>
+        <bundle_id>com.apple.Dictionary</bundle_id>
+      </application>
+      <application>
+        <name>Digital Color Meter.app</name>
+        <path>/System/Applications/Utilities/Digital Color Meter.app</path>
+        <version>5.22</version>
+        <bundle_id>com.apple.DigitalColorMeter</bundle_id>
+      </application>
+      <application>
+        <name>Disk Utility.app</name>
+        <path>/System/Applications/Utilities/Disk Utility.app</path>
+        <version>22.6</version>
+        <bundle_id>com.apple.DiskUtility</bundle_id>
+      </application>
+      <application>
+        <name>FaceTime.app</name>
+        <path>/System/Applications/FaceTime.app</path>
+        <version>5.0</version>
+        <bundle_id>com.apple.FaceTime</bundle_id>
+      </application>
+      <application>
+        <name>FindMy.app</name>
+        <path>/System/Applications/FindMy.app</path>
+        <version>4.0</version>
+        <bundle_id>com.apple.findmy</bundle_id>
+      </application>
+      <application>
+        <name>Font Book.app</name>
+        <path>/System/Applications/Font Book.app</path>
+        <version>11.0</version>
+        <bundle_id>com.apple.FontBook</bundle_id>
+      </application>
+      <application>
+        <name>Freeform.app</name>
+        <path>/System/Applications/Freeform.app</path>
+        <version>1.2</version>
+        <bundle_id>com.apple.freeform</bundle_id>
+      </application>
+      <application>
+        <name>Grapher.app</name>
+        <path>/System/Applications/Utilities/Grapher.app</path>
+        <version>2.7</version>
+        <bundle_id>com.apple.grapher</bundle_id>
+      </application>
+      <application>
+        <name>Home.app</name>
+        <path>/System/Applications/Home.app</path>
+        <version>7.0</version>
+        <bundle_id>com.apple.Home</bundle_id>
+      </application>
+      <application>
+        <name>Image Capture.app</name>
+        <path>/System/Applications/Image Capture.app</path>
+        <version>8.0</version>
+        <bundle_id>com.apple.Image_Capture</bundle_id>
+      </application>
+      <application>
+        <name>Keychain Access.app</name>
+        <path>/System/Applications/Utilities/Keychain Access.app</path>
+        <version>11.0</version>
+        <bundle_id>com.apple.keychainaccess</bundle_id>
+      </application>
+      <application>
+        <name>Keynote.app</name>
+        <path>/Applications/Keynote.app</path>
+        <version>13.1</version>
+        <bundle_id>com.apple.iWork.Keynote</bundle_id>
+      </application>
+      <application>
+        <name>Launchpad.app</name>
+        <path>/System/Applications/Launchpad.app</path>
+        <version>1.0</version>
+        <bundle_id>com.apple.launchpad.launcher</bundle_id>
+      </application>
+      <application>
+        <name>Mail.app</name>
+        <path>/System/Applications/Mail.app</path>
+        <version>16.0</version>
+        <bundle_id>com.apple.mail</bundle_id>
+      </application>
+      <application>
+        <name>Maps.app</name>
+        <path>/System/Applications/Maps.app</path>
+        <version>3.0</version>
+        <bundle_id>com.apple.Maps</bundle_id>
+      </application>
+      <application>
+        <name>Messages.app</name>
+        <path>/System/Applications/Messages.app</path>
+        <version>14.0</version>
+        <bundle_id>com.apple.MobileSMS</bundle_id>
+      </application>
+      <application>
+        <name>Migration Assistant.app</name>
+        <path>/System/Applications/Utilities/Migration Assistant.app</path>
+        <version>13.4</version>
+        <bundle_id>com.apple.MigrateAssistant</bundle_id>
+      </application>
+      <application>
+        <name>Mission Control.app</name>
+        <path>/System/Applications/Mission Control.app</path>
+        <version>1.2</version>
+        <bundle_id>com.apple.exposelauncher</bundle_id>
+      </application>
+      <application>
+        <name>Music.app</name>
+        <path>/System/Applications/Music.app</path>
+        <version>1.3.5</version>
+        <bundle_id>com.apple.Music</bundle_id>
+      </application>
+      <application>
+        <name>News.app</name>
+        <path>/System/Applications/News.app</path>
+        <version>8.4</version>
+        <bundle_id>com.apple.news</bundle_id>
+      </application>
+      <application>
+        <name>Notes.app</name>
+        <path>/System/Applications/Notes.app</path>
+        <version>4.10</version>
+        <bundle_id>com.apple.Notes</bundle_id>
+      </application>
+      <application>
+        <name>Photo Booth.app</name>
+        <path>/System/Applications/Photo Booth.app</path>
+        <version>13.0</version>
+        <bundle_id>com.apple.PhotoBooth</bundle_id>
+      </application>
+      <application>
+        <name>Photos.app</name>
+        <path>/System/Applications/Photos.app</path>
+        <version>8.0</version>
+        <bundle_id>com.apple.Photos</bundle_id>
+      </application>
+      <application>
+        <name>Podcasts.app</name>
+        <path>/System/Applications/Podcasts.app</path>
+        <version>1.1.0</version>
+        <bundle_id>com.apple.podcasts</bundle_id>
+      </application>
+      <application>
+        <name>Preview.app</name>
+        <path>/System/Applications/Preview.app</path>
+        <version>11.0</version>
+        <bundle_id>com.apple.Preview</bundle_id>
+      </application>
+      <application>
+        <name>QuickTime Player.app</name>
+        <path>/System/Applications/QuickTime Player.app</path>
+        <version>10.5</version>
+        <bundle_id>com.apple.QuickTimePlayerX</bundle_id>
+      </application>
+      <application>
+        <name>Reminders.app</name>
+        <path>/System/Applications/Reminders.app</path>
+        <version>7.0</version>
+        <bundle_id>com.apple.reminders</bundle_id>
+      </application>
+      <application>
+        <name>Safari.app</name>
+        <path>/Applications/Safari.app</path>
+        <version>16.5</version>
+        <bundle_id>com.apple.Safari</bundle_id>
+      </application>
+      <application>
+        <name>Screenshot.app</name>
+        <path>/System/Applications/Utilities/Screenshot.app</path>
+        <version>1.0</version>
+        <bundle_id>com.apple.screenshot.launcher</bundle_id>
+      </application>
+      <application>
+        <name>Script Editor.app</name>
+        <path>/System/Applications/Utilities/Script Editor.app</path>
+        <version>2.11</version>
+        <bundle_id>com.apple.ScriptEditor2</bundle_id>
+      </application>
+      <application>
+        <name>Self Service.app</name>
+        <path>/Applications/Self Service.app</path>
+        <version>10.42.1</version>
+        <bundle_id>com.jamfsoftware.selfservice.mac</bundle_id>
+      </application>
+      <application>
+        <name>Shortcuts.app</name>
+        <path>/System/Applications/Shortcuts.app</path>
+        <version>6.0</version>
+        <bundle_id>com.apple.shortcuts</bundle_id>
+      </application>
+      <application>
+        <name>Siri.app</name>
+        <path>/System/Applications/Siri.app</path>
+        <version>1.0</version>
+        <bundle_id>com.apple.siri.launcher</bundle_id>
+      </application>
+      <application>
+        <name>Smart Countdown Timer.app</name>
+        <path>/Applications/Smart Countdown Timer.app</path>
+        <version>1.6</version>
+        <bundle_id>com.fiplab.smartcountdowntimer</bundle_id>
+      </application>
+      <application>
+        <name>Stickies.app</name>
+        <path>/System/Applications/Stickies.app</path>
+        <version>10.2</version>
+        <bundle_id>com.apple.Stickies</bundle_id>
+      </application>
+      <application>
+        <name>Stocks.app</name>
+        <path>/System/Applications/Stocks.app</path>
+        <version>5.3.1</version>
+        <bundle_id>com.apple.stocks</bundle_id>
+      </application>
+      <application>
+        <name>System Information.app</name>
+        <path>/System/Applications/Utilities/System Information.app</path>
+        <version>11.0</version>
+        <bundle_id>com.apple.SystemProfiler</bundle_id>
+      </application>
+      <application>
+        <name>System Settings.app</name>
+        <path>/System/Applications/System Settings.app</path>
+        <version>15.0</version>
+        <bundle_id>com.apple.systempreferences</bundle_id>
+      </application>
+      <application>
+        <name>Terminal.app</name>
+        <path>/System/Applications/Utilities/Terminal.app</path>
+        <version>2.13</version>
+        <bundle_id>com.apple.Terminal</bundle_id>
+      </application>
+      <application>
+        <name>TextEdit.app</name>
+        <path>/System/Applications/TextEdit.app</path>
+        <version>1.18</version>
+        <bundle_id>com.apple.TextEdit</bundle_id>
+      </application>
+      <application>
+        <name>Time Machine.app</name>
+        <path>/System/Applications/Time Machine.app</path>
+        <version>1.3</version>
+        <bundle_id>com.apple.backup.launcher</bundle_id>
+      </application>
+      <application>
+        <name>TV.app</name>
+        <path>/System/Applications/TV.app</path>
+        <version>1.3.5</version>
+        <bundle_id>com.apple.TV</bundle_id>
+      </application>
+      <application>
+        <name>VoiceMemos.app</name>
+        <path>/System/Applications/VoiceMemos.app</path>
+        <version>2.3</version>
+        <bundle_id>com.apple.VoiceMemos</bundle_id>
+      </application>
+      <application>
+        <name>VoiceOver Utility.app</name>
+        <path>/System/Applications/Utilities/VoiceOver Utility.app</path>
+        <version>10</version>
+        <bundle_id>com.apple.VoiceOverUtility</bundle_id>
+      </application>
+      <application>
+        <name>Weather.app</name>
+        <path>/System/Applications/Weather.app</path>
+        <version>3.3.1</version>
+        <bundle_id>com.apple.weather</bundle_id>
+      </application>
+      <application>
+        <name>zoom.us.app</name>
+        <path>/Applications/zoom.us.app</path>
+        <version>5.15.11 (22019)</version>
+        <bundle_id>us.zoom.xos</bundle_id>
+      </application>
+    </applications>
+    <fonts>
+      <size>0</size>
+    </fonts>
+    <plugins>
+      <size>0</size>
+    </plugins>
+  </software>
+  <extension_attributes>
+    <extension_attribute>
+      <id>3</id>
+      <name>Beta Status</name>
+      <type>String</type>
+      <multi_value>false</multi_value>
+      <value>(null)</value>
+    </extension_attribute>
+    <extension_attribute>
+      <id>4</id>
+      <name>Beta Status Plus</name>
+      <type>String</type>
+      <multi_value>false</multi_value>
+      <value>(null)</value>
+    </extension_attribute>
+    <extension_attribute>
+      <id>1</id>
+      <name>Employee type</name>
+      <type>String</type>
+      <multi_value>false</multi_value>
+      <value>Part-time</value>
+    </extension_attribute>
+    <extension_attribute>
+      <id>5</id>
+      <name>FV Status</name>
+      <type>String</type>
+      <multi_value>false</multi_value>
+      <value>Off</value>
+    </extension_attribute>
+    <extension_attribute>
+      <id>6</id>
+      <name>Secure Token Status</name>
+      <type>String</type>
+      <multi_value>false</multi_value>
+      <value>localadmin</value>
+    </extension_attribute>
+    <extension_attribute>
+      <id>2</id>
+      <name>User group membership</name>
+      <type>String</type>
+      <multi_value>true</multi_value>
+      <values>
+        <value>CN=Support,OU=Groups,DC=jamf,DC=training</value>
+        <value>CN=Jamf Pro Auditors,OU=Groups,DC=jamf,DC=training</value>
+        <value>CN=Jamf Pro Administrators,OU=Groups,DC=jamf,DC=training</value>
+        <value>CN=All Users,OU=Groups,DC=jamf,DC=training</value>
+      </values>
+    </extension_attribute>
+    <extension_attribute>
+      <id>7</id>
+      <name>User group membership-Demo</name>
+      <type>String</type>
+      <multi_value>true</multi_value>
+      <values>
+        <value/>
+      </values>
+    </extension_attribute>
+  </extension_attributes>
+  <groups_accounts>
+    <computer_group_memberships>
+      <group>All Managed Clients</group>
+      <group>macOS Version-Full Jamf Pro</group>
+      <group>Beta Status</group>
+      <group>Supervised or user Approved MDM</group>
+      <group>Profile Name CALLED Privacy Preference Policy Control</group>
+      <group>Privacy Preference Policy Control</group>
+    </computer_group_memberships>
+    <local_accounts>
+      <user>
+        <name>localadmin</name>
+        <realname>Local Admin</realname>
+        <uid>501</uid>
+        <home>/Users/localadmin</home>
+        <home_size>-1MB</home_size>
+        <home_size_mb>-1</home_size_mb>
+        <administrator>true</administrator>
+        <filevault_enabled>true</filevault_enabled>
+      </user>
+    </local_accounts>
+    <user_inventories>
+      <disable_automatic_login>true</disable_automatic_login>
+      <user>
+        <username>localadmin</username>
+        <password_history_depth/>
+        <password_min_length>4</password_min_length>
+        <password_max_age/>
+        <password_min_complex_characters/>
+        <password_require_alphanumeric>false</password_require_alphanumeric>
+      </user>
+    </user_inventories>
+  </groups_accounts>
+  <iphones>
+    <size>0</size>
+  </iphones>
+  <configuration_profiles>
+    <size>14</size>
+    <configuration_profile>
+      <id>-1</id>
+      <name/>
+      <uuid/>
+      <is_removable since="9.73">false</is_removable>
+    </configuration_profile>
+    <configuration_profile>
+      <id>-1</id>
+      <name/>
+      <uuid/>
+      <is_removable since="9.73">false</is_removable>
+    </configuration_profile>
+    <configuration_profile>
+      <id>-1</id>
+      <name/>
+      <uuid/>
+      <is_removable since="9.73">false</is_removable>
+    </configuration_profile>
+    <configuration_profile>
+      <id>-27</id>
+      <name/>
+      <uuid/>
+      <is_removable since="9.73">false</is_removable>
+    </configuration_profile>
+    <configuration_profile>
+      <id>-1</id>
+      <name/>
+      <uuid/>
+      <is_removable since="9.73">false</is_removable>
+    </configuration_profile>
+    <configuration_profile>
+      <id>1</id>
+      <name/>
+      <uuid/>
+      <is_removable since="9.73">false</is_removable>
+    </configuration_profile>
+    <configuration_profile>
+      <id>3</id>
+      <name/>
+      <uuid/>
+      <is_removable since="9.73">false</is_removable>
+    </configuration_profile>
+    <configuration_profile>
+      <id>4</id>
+      <name/>
+      <uuid/>
+      <is_removable since="9.73">false</is_removable>
+    </configuration_profile>
+    <configuration_profile>
+      <id>5</id>
+      <name/>
+      <uuid/>
+      <is_removable since="9.73">false</is_removable>
+    </configuration_profile>
+    <configuration_profile>
+      <id>6</id>
+      <name/>
+      <uuid/>
+      <is_removable since="9.73">false</is_removable>
+    </configuration_profile>
+    <configuration_profile>
+      <id>11</id>
+      <name/>
+      <uuid/>
+      <is_removable since="9.73">false</is_removable>
+    </configuration_profile>
+    <configuration_profile>
+      <id>12</id>
+      <name/>
+      <uuid/>
+      <is_removable since="9.73">false</is_removable>
+    </configuration_profile>
+    <configuration_profile>
+      <id>16</id>
+      <name/>
+      <uuid/>
+      <is_removable since="9.73">false</is_removable>
+    </configuration_profile>
+    <configuration_profile>
+      <id>14</id>
+      <name/>
+      <uuid/>
+      <is_removable since="9.73">false</is_removable>
+    </configuration_profile>
+  </configuration_profiles>
+</computer>

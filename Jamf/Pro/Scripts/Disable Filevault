@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Crypt uninstall script
+# https://raw.githubusercontent.com/grahamgilbert/crypt/master/Package/uninstall
+
+# 
+
+#Remove MCX Settings
+/bin/rm -rf /Library/Managed\ Preferences/*
+
+# Rebuild computer level MCX
+/usr/bin/dscl . -delete /Computers
+
+/usr/bin/fdesetup disable
+
+/usr/bin/fdesetup status

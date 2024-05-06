@@ -1,0 +1,8 @@
+#!/bin/bash
+
+rm -rf /Applications/Box*
+echo "reached rm -rf Box"
+killall Box
+echo "Reached killall Box"
+/Library/Application\ Support/Box/uninstall_box_drive
+echo "reached uninstall script"

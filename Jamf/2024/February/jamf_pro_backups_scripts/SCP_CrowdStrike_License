@@ -1,0 +1,6 @@
+#!/bin/bash
+
+#/usr/sbin/installer -pkg /Applications/Falcon_Installer.pkg -target /
+/Applications/Falcon.app/Contents/Resources/falconctl license $4
+#rm /Applications/Falcon_Installer.pkg
+exit 0

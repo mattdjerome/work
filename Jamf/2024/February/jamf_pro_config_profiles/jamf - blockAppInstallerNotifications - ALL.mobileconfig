@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1">
+  <dict>
+    <key>PayloadUUID</key>
+    <string>98018E5B-6C8F-4F69-83D5-CE56C4AE9553</string>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadOrganization</key>
+    <string>Emerson Collective</string>
+    <key>PayloadIdentifier</key>
+    <string>98018E5B-6C8F-4F69-83D5-CE56C4AE9553</string>
+    <key>PayloadDisplayName</key>
+    <string>jamf - blockAppInstallerNotifications - ALL</string>
+    <key>PayloadDescription</key>
+    <string/>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
+    <key>PayloadEnabled</key>
+    <true/>
+    <key>PayloadRemovalDisallowed</key>
+    <true/>
+    <key>PayloadScope</key>
+    <string>System</string>
+    <key>PayloadContent</key>
+    <array>
+      <dict>
+        <key>PayloadDisplayName</key>
+        <string>Notifications Payload</string>
+        <key>PayloadIdentifier</key>
+        <string>E9331C4C-6F5A-4BE5-BD99-6E1E5573DE00</string>
+        <key>PayloadOrganization</key>
+        <string>JAMF Software</string>
+        <key>PayloadType</key>
+        <string>com.apple.notificationsettings</string>
+        <key>PayloadUUID</key>
+        <string>9E6C173E-25E5-4FB1-B4AD-C23C712415F5</string>
+        <key>PayloadVersion</key>
+        <integer>1</integer>
+        <key>NotificationSettings</key>
+        <array>
+          <dict>
+            <key>BundleIdentifier</key>
+            <string>com.jamf.appinstallers.notify</string>
+            <key>CriticalAlertEnabled</key>
+            <false/>
+            <key>NotificationsEnabled</key>
+            <false/>
+          </dict>
+        </array>
+      </dict>
+    </array>
+  </dict>
+</plist>

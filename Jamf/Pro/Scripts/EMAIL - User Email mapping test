@@ -1,0 +1,117 @@
+#!/bin/bash
+IFS=$'\n' 
+
+loggedInUser=$("/usr/bin/stat" -f%Su "/dev/console")
+loggedInUserHome=$("/usr/bin/dscl" . -read "/Users/$loggedInUser" NFSHomeDirectory | "/usr/bin/awk" '{print $NF}')
+userFirstName=$(id -F "$loggedInUser"| awk '{print $1}')
+userLastName=$(id -F "$loggedInUser"| awk '{print $2}')
+launchServicesPlist="$loggedInUserHome/Library/Preferences/com.apple.LaunchServices/com.apple.launchservices.secure.plist"
+
+outputString=""
+
+format_for_output(){
+  # Use: In func name
+  echo "$1:::$2"
+  if [[ ! $outputString =~ $2 ]]; then
+    outputString+="$2"
+  fi
+} 
+
+get_outlook_configured_email(){
+  outlookPrimaryProfile=$(/usr/libexec/PlistBuddy -c 'print Default_Profile_Name' "$loggedInUserHome/Library/Group Containers/UBF8T346G9.Office/OutlookProfile.plist")
+
+  outlookConfiguredEmail=$(sqlite3 -line "$loggedInUserHome/Library/Group Containers/UBF8T346G9.Office/Outlook/Outlook 15 Profiles/$outlookPrimaryProfile/Data/Outlook.sqlite" 'select Account_Name from AccountsMail where Account_Name like "%.com";' | awk '{print $3}' | sort -u)
+
+  # # Some have multiple accounts, need to grep for their first name from the accts
+  # if [[ $(echo "$outlookConfiguredEmail" | wc -l) -gt 1 ]]; then
+  #   echo "need to grep outlook email"
+
+  #   outlookConfiguredEmail2=$(echo "$outlookConfiguredEmail" | grep -iE "$userFirstName@")
+  #   if [[ -z $outlookConfiguredEmail2 ]]; then
+  #     echo "needed last name"
+  #     outlookConfiguredEmail=$(echo "$outlookConfiguredEmail" | grep -iE ".*$userLastName@")
+  #     echo $outlookConfiguredEmail
+  #     #statements
+  #   else
+  #     outlookConfiguredEmail=$outlookConfiguredEmail2
+  #   fi
+  #   #statements
+  # fi
+}
+
+get_apple_mail_configured_email(){
+  # Get mail account info
+  appleMailConfiguredEmail=$(sqlite3 "$loggedInUserHome/Library/Accounts/Accounts4.sqlite" "select ZUSERNAME from ZACCOUNT where ZUSERNAME like '%emersoncollective.com';" | sort -u)
+
+  # if [[ $(echo "$appleMailConfiguredEmail" | wc -l) -gt 1 ]]; then
+  #   echo "need to grep apple email"
+
+  #   appleMailConfiguredEmail=$(echo "$appleMailConfiguredEmail" | grep -iE "$userFirstName@")
+  #   if [[ -z $appleMailConfiguredEmail ]]; then
+  #     echo "needed last name"
+  #     appleMailConfiguredEmail=$(echo "$appleMailConfiguredEmail" | grep -iE ".*$userLastName@")
+  #     #statements
+  #   fi
+  #   #statements
+  # fi
+}
+
+find_best_email_match(){
+  # Combine all email addresses to one string
+  allEmailAddresses="$appleMailConfiguredEmail
+  $officeSubscriptionEmail
+  $outlookConfiguredEmail"
+  # try first name
+  # 
+  firstNameMatch=$(echo "$allEmailAddresses" | grep -m 1 -iE "$userFirstName@")
+  if [[ -n $firstNameMatch ]]; then
+    #statements
+    echo "found on first match"
+    echo "firstNameMatch=$firstNameMatch"
+    exit 0
+  fi
+  # 
+  lastNameMatch=$(echo "$allEmailAddresses" | grep -m 1 -iE ".*$userLastName@")
+  if [[ -n $lastNameMatch ]]; then
+    #statements
+    echo "found on lastNameMatch"
+    echo "lastNameMatch=$lastNameMatch"
+    exit 0
+  fi
+  # last name
+}
+
+officeSubscriptionEmail=$(sudo -u "$loggedInUser" defaults read com.microsoft.office.plist OfficeActivationEmailAddress)
+
+
+# defaultMailClient=$(/usr/libexec/PlistBuddy -c 'print' "$launchServicesPlist" | grep 'mailto' -A1 | grep 'LSHandlerRoleAll' | awk -F'=' '{print $2}')
+
+
+get_outlook_configured_email
+get_apple_mail_configured_email
+# "/Users/dan/Library/Group Containers/UBF8T346G9.Office/Outlook/Outlook 15 Profiles/Main Profile/Data/Outlook.sqlite"
+
+find_best_email_match
+
+# # format_for_output "defaultMailClient" "$defaultMailClient"
+# format_for_output "accountsOutput" "$appleMailConfiguredEmail"
+# format_for_output "officeActivationEmail" "$officeSubscriptionEmail"
+# format_for_output "outlookEmailConfigured" "$outlookConfiguredEmail"
+
+
+# defaultMailClient=$(/usr/libexec/PlistBuddy -c 'print' "$launchServicesPlist" | grep 'mailto' -A1 | grep 'LSHandlerRoleAll' | awk -F'=' '{print $2}' | xargs)
+# echo "DefaultMailClient:::$defaultMailClient"
+
+# echo "<result>$outputString</result>"
+
+
+
+
+
+# Dict {
+#             LSHandlerURLScheme = mailto
+#             LSHandlerRoleAll = com.apple.mail
+#             LSHandlerPreferredVersions = Dict {
+#                 LSHandlerRoleAll = -
+#             }
+#         }

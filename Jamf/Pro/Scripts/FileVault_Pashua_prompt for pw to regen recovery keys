@@ -1,0 +1,116 @@
+#!/bin/bash
+
+#################################
+#  Policy Info - Intended to be auto-run on every-day trigger
+#################################  
+# 1. FV key redirect config profile installed on target computer
+# 2. Pashua install for gui prompts
+# 3. This script run to prompt user (max 2x if wrong pw) 
+# 4. Use PW to regen FV keys
+
+
+GUI_USER=$(who | grep console | grep -v '_mbsetupuser' | awk '{print $1}') 
+killall Pashua
+
+setup_pashua_prompt_prefs(){
+conf="# Window
+*.title = Password Required
+*.floating = 1
+# Message
+msg.type = text
+msg.text = Filevault is attempting self-repair of its recovery keys.[return][return]Enter your password to allow this.
+msg.x = 75
+msg.y = 100
+# Password label
+pwl.type = text
+pwl.text = Password:
+pwl.x = 75
+pwl.y = 65
+# Password field
+psw.type = password
+psw.mandatory = 1
+psw.width = 250
+psw.x = 145
+psw.y = 60
+# Default button
+db.type = defaultbutton
+db.label = Allow
+# Cancel button
+# cb.type = cancelbutton
+# cb.label = Cancel
+img.type = image
+img.maxwidth = 65
+img.y = 100
+img.x = 0
+img.path = /System/Library/PreferencePanes/Security.prefPane/Contents/Resources/FileVault.icns"
+# Write config file
+pashua_configfile=$(/usr/bin/mktemp /tmp/pashua_XXXXXXXXX)
+echo "$conf" > "$pashua_configfile"
+}
+
+
+checkGuiUserInFV(){
+  ## check to make sure the GUI user has the ability to
+  ## add users to filevault before prompting for the password
+  if [[ -z $(fdesetup list | grep "$guiUser") ]]; then
+    echo "GUI user is not in filevault, exiting"
+    jamf recon
+    exit 1
+  else
+    echo "GUI user found in FV, continuing"
+  fi
+}
+
+rotate_fv_keys(){
+
+expect -c "
+log_user 0
+spawn fdesetup changerecovery -personal
+expect \"Enter the user name:\"
+send ${GUI_USER}\r
+expect \"Enter the password for the user '${GUI_USER}':\"
+send ${userPassword}\r
+log_user 1
+expect eof
+"
+}
+
+send_user_notification_center_message(){
+  messageText="$1"
+
+  managementAppPath="/Library/Application Support/JAMF/bin/Management Action.app/Contents/MacOS/Management Action"
+  "$managementAppPath" -message "$messageText"
+}
+
+main(){
+if [[ ! -e /Applications/Pashua.app ]]; then
+  echo "Pashua not installed, exiting"
+  exit 1
+fi
+
+setup_pashua_prompt_prefs
+
+# Keep prompt at most 2 times, check password to make sure it's valid
+local countOfTries=0
+until dscl /Search -authonly "$GUI_USER" "$userPassword" &>/dev/null; do
+  if (( countOfTries >=2 )); then
+    echo "Incorrect password, hit maximum number of PW prompts"
+    exit 1
+  fi
+  local rawResult=$("/Applications/Pashua.app/Contents/MacOS/Pashua" "$pashua_configfile")
+  local userPassword=$(echo "$rawResult" | grep psw | cut -d'=' -f2-)
+  (( countOfTries++ ))
+done
+
+rotate_fv_keys
+# # Remove config file
+rm "$pashua_configfile"
+
+send_user_notification_center_message "Filevault self-repair successful"
+
+unset rawResult
+unset userPassword
+}
+
+main $@
+

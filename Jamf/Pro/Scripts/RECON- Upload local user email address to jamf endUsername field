@@ -1,0 +1,98 @@
+#!/bin/bash
+IFS=$'\n' 
+
+# Match logged in user's real name against email addresses
+
+
+loggedInUser=$("/usr/bin/stat" -f%Su "/dev/console")
+loggedInUserHome=$("/usr/bin/dscl" . -read "/Users/$loggedInUser" NFSHomeDirectory | "/usr/bin/awk" '{print $NF}')
+userFirstName=$(id -F "$loggedInUser"| awk '{print $1}')
+userLastName=$(id -F "$loggedInUser"| awk '{print $2}')
+launchServicesPlist="$loggedInUserHome/Library/Preferences/com.apple.LaunchServices/com.apple.launchservices.secure.plist"
+
+outputString=""
+
+format_for_output(){
+  # Use: In func name
+  echo "$1:::$2"
+  if [[ ! $outputString =~ $2 ]]; then
+    outputString+="$2"
+  fi
+} 
+
+get_box_configure_email(){
+  if [[ -e "$loggedInUserHome/Library/Preferences/com.box.desktop.plist" ]]; then
+    #statements
+    boxEmailAddress=$(defaults read "$loggedInUserHome/Library/Preferences/com.box.desktop.plist" preferences/login_name)
+    echo "Box: $boxEmailAddress"
+  else
+    echo "box not installed"
+  fi
+  
+}
+
+get_outlook_configured_email(){
+  outlookPrimaryProfile=$(/usr/libexec/PlistBuddy -c 'print Default_Profile_Name' "$loggedInUserHome/Library/Group Containers/UBF8T346G9.Office/OutlookProfile.plist")
+
+  outlookConfiguredEmail=$(sqlite3 -line "$loggedInUserHome/Library/Group Containers/UBF8T346G9.Office/Outlook/Outlook 15 Profiles/$outlookPrimaryProfile/Data/Outlook.sqlite" 'select Account_Name from AccountsMail where Account_Name like "%.com";' | awk '{print $3}' | sort -u)
+
+}
+
+get_apple_mail_configured_email(){
+  # Get mail account info
+  appleMailConfiguredEmail=$(sqlite3 "$loggedInUserHome/Library/Accounts/Accounts4.sqlite" "select ZUSERNAME from ZACCOUNT where ZUSERNAME like '%emersoncollective.com';" | sort -u)
+
+}
+
+find_best_email_match(){
+  # Combine all email addresses to one string
+  allEmailAddresses="$appleMailConfiguredEmail
+$officeSubscriptionEmail
+$outlookConfiguredEmail"
+
+  # try first name
+  # 
+  firstNameMatch=$(echo "$allEmailAddresses" | grep -m 1 -iE "$userFirstName@" | xargs)
+  if [[ -n $firstNameMatch ]]; then
+    #statements
+    # echo "found on first match"
+    /usr/local/bin/jamf recon -endUsername "$firstNameMatch"
+    echo "<result>$firstNameMatch</result>"
+    exit 0
+  fi
+  # 
+  lastNameMatch=$(echo "$allEmailAddresses" | grep -m 1 -iE ".*$userLastName@" |xargs)
+  if [[ -n $lastNameMatch ]]; then
+    #statements
+    # echo "found on lastNameMatch"
+    /usr/local/bin/jamf recon -endUsername "$lastNameMatch"
+    echo "<result>$lastNameMatch</result>"
+    exit 0
+  fi
+  # last ditch effort
+  echo "######### Failed ############"
+  echo "<result>$allEmailAddresses</result>"
+  echo "######### Failed ############"
+  /usr/local/bin/jamf recon -endUsername "$officeSubscriptionEmail"
+  exit 0
+  # last name
+}
+
+officeSubscriptionEmail=$(sudo -u "$loggedInUser" defaults read com.microsoft.office.plist OfficeActivationEmailAddress)
+
+
+# defaultMailClient=$(/usr/libexec/PlistBuddy -c 'print' "$launchServicesPlist" | grep 'mailto' -A1 | grep 'LSHandlerRoleAll' | awk -F'=' '{print $2}')
+
+
+get_box_configure_email
+# Box forces okta auth, if there is a box email, use it.
+
+# No luck on box, try other services for email
+get_outlook_configured_email
+get_apple_mail_configured_email
+# "/Users/dan/Library/Group Containers/UBF8T346G9.Office/Outlook/Outlook 15 Profiles/Main Profile/Data/Outlook.sqlite"
+
+find_best_email_match
+
+
+

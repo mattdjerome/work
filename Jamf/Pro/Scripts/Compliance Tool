@@ -1,0 +1,138 @@
+#!/usr/local/ec/bin/python3
+
+import subprocess
+import platform
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+import smtplib
+from email.message import EmailMessage
+import socket
+import json
+import requests
+
+#checks if filevault is enabled
+def encryption_status(errors,requirements):
+	fv2_status = subprocess.run('fdesetup isactive', shell=True, check=True, stdout=subprocess.PIPE, universal_newlines=True)
+	is_active = fv2_status.returncode
+	if is_active == 1:
+		errors.append("Encryption Error")
+	else:
+		requirements.append("Encryption is active")
+
+
+#checks if a recovery key has been issued to the computer. Does not check if it's in jamf
+def recovery_key_present(errors,requirements):
+	key_status = subprocess.run('sudo fdesetup haspersonalrecoverykey', shell=True, check=True, stdout=subprocess.PIPE, universal_newlines=False)
+	key_result = key_status.returncode
+	if key_result == 1:
+		errors.append("Recovery Key Status is unknown")
+	else:
+		requirements.append("Recovery Key is known")
+
+#Checks to make sure the OS is supported
+def os_version(errors,requirements):
+	version=platform.mac_ver()[0]
+	if version <= "10.15.0":
+		errors.append("Unsupported macOS Version")
+	else:
+		requirements.append("Current Version of macOS")
+
+#Files a ticket in zendesk
+def file_ticket(errors,computer_name):
+	user='scanner@emersoncollective.com'
+	password = '7qwc@QwaMRFo'
+	smtpsrv = "smtp.office365.com"
+	smtpserver = smtplib.SMTP(smtpsrv,587)
+	msg = EmailMessage()
+	msg['Subject'] = 'Compliance Alert'
+	msg['From'] = 'scanner@emersoncollective.com'
+	msg['To'] = 'mjerome@emersoncollective.com'
+	msg.set_content(f"The computer, {computer_name} is out of compliance because: \n {errors}") 
+	smtpserver.starttls()
+	smtpserver.login(user, password)
+	smtpserver.send_message (msg)
+	smtpserver.close()
+
+# Usedto detect if a specific app is installed
+def installed_apps(errors,required_app,list):
+	app_name = required_app
+	if app_name in list:
+		requirements.append(f"{required_app} is installed")
+	else:
+		errors.append(f"{required_app} is not installed")
+
+def check_jamf_key(errors,requirements,uapi_token):
+	id_number = retreive_id(host_name)
+	url = f"https://emersoncollective.jamfcloud.com/uapi/v1/computers-inventory-detail/{id_number}"
+	
+	headers = {
+		"Accept": "application/json",
+		"Authorization": f"Bearer {uapi_token}"
+	}
+	
+	response = requests.request("GET", url, headers=headers)
+	
+	
+	results = response.json()
+	valid_key = results['diskEncryption']['individualRecoveryKeyValidityStatus']	
+	if valid_key == "VALID":
+		requirements.append("A recovery key is escrowed in JAMF")
+	else:
+		errors.append("The recovery key is not escrowed")
+
+
+def retreive_id(hostname):
+	url = f"https://emersoncollective.jamfcloud.com/JSSResource/computers/name/{hostname}/subset/General"
+
+	headers = {
+	"Accept": "application/json",
+	"Authorization": "Basic YXBpX3VzZXI6cFB4b3ppSDU5WTJqMURBU0lvYTBuMQ=="
+}	
+
+	response = requests.request("GET", url, headers=headers)
+	results = response.json()
+	id_number = results['computer']['general']['id']
+	return id_number
+
+
+def get_uapi_token(jamf_user, jamf_password, jamf_hostname):
+	
+	jamf_test_url = jamf_hostname + "/uapi/auth/tokens"
+	headers = {'Accept': 'application/json', }
+	response = requests.post(url=jamf_test_url, headers=headers, auth=(jamf_user, jamf_password))
+	response_json = response.json()
+	return response_json['token']
+
+
+#### This is where everything actually happens
+
+
+errors = [] # errors is the list of things that are causing non-compliance
+requirements = [] # lists the things that are correct
+host_name = socket.gethostname() # retrieves the hostname of the computer
+
+applications=[]
+applications = subprocess.run ('ls /Applications', shell=True, check=True, stdout=subprocess.PIPE, universal_newlines=True)
+full_list = applications.stdout
+
+uapi_token = get_uapi_token('api_user', 'pPxoziH59Y2j1DASIoa0n1', 'https://emersoncollective.jamfcloud.com')    
+os_version(errors, requirements)
+encryption_status(errors, requirements)
+recovery_key_present(errors, requirements)
+installed_apps(errors, "Code42.app", full_list)
+installed_apps(errors, "Falcon.app", full_list)
+check_jamf_key(errors, requirements,uapi_token)
+
+
+# If the number of items in the variable errors is 0, it quits, if not it will file a ticket with the reasons why.
+if len(errors) == 0:
+	print(f"Computer is in compliance!\n")
+	for i in requirements:
+		print(i)
+	exit(0)
+else:
+	print("Your computer is out of compliance for the following reasons:")
+	for i in errors:
+		print(i)
+	file_ticket(errors,host_name)
+	exit(0)

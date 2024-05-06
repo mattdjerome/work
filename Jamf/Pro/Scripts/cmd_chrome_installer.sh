@@ -1,0 +1,93 @@
+#!/bin/bash
+##################################################################
+#: Date Created  : (January 15, 2018)
+#: Author        : Daniel Griggs
+#: Email         : dan@cmdsec.com
+#: Version       : 0.10
+##################################################################
+
+
+# adapted from Joe Farage's Firefox script
+# https://www.jamf.com/jamf-nation/discussions/12956/firefox-update-script
+
+######################
+### VARIABLE BLOCK ###
+######################
+DMG_FILE_NAME="googlechrome.dmg"
+DMG_VOLUME_NAME="Google Chrome"
+
+URL='https://dl.google.com/chrome/mac/stable/GGRO/googlechrome.dmg'
+
+######################
+# END VARIABLE BLOCK #
+######################
+#
+#
+#
+######################
+### FUNCTIONS BLOCK ###
+######################
+cleanup_finish(){
+  echo "Starting cleanup_finish"
+
+  /usr/bin/hdiutil detach $(/bin/df | /usr/bin/grep "${DMG_VOLUME_NAME}" | awk '{print $1}') -quiet
+
+  /bin/rm /tmp/${DMG_FILE_NAME}
+}
+trap cleanup_finish EXIT
+
+send_user_message(){
+  messageText="$1"
+
+  managementAppPath="/Library/Application Support/JAMF/bin/Management Action.app/Contents/MacOS/Management Action"
+
+  "$managementAppPath" -message "$messageText"
+}
+
+check_versions(){
+  echo "starting check_versions"
+  installedVersion=$(/usr/bin/defaults read /Applications/Google\ Chrome.app/Contents/Info CFBundleShortVersionString | xargs)
+
+  if [[ -n $installedVersion ]]; then
+    echo "installed version: $installedVersion"
+  else
+    echo "chrome not installed"
+  fi
+
+}
+
+download_and_install(){
+  /bin/echo "--"
+  /bin/echo "Downloading latest version."
+  /usr/bin/curl -s -o /tmp/${DMG_FILE_NAME} ${URL}
+  /bin/echo "Mounting installer disk image."
+  /usr/bin/hdiutil attach /tmp/${DMG_FILE_NAME} -nobrowse -quiet
+  /bin/echo "Installing..."
+  ditto -rsrc "/Volumes/${DMG_VOLUME_NAME}/Google Chrome.app" "/Applications/Google Chrome.app"
+  /bin/sleep 10
+  /bin/echo "Unmounting installer disk image."
+  /usr/bin/hdiutil detach $(/bin/df | /usr/bin/grep "${DMG_VOLUME_NAME}" | awk '{print $1}') -quiet
+  /bin/sleep 10
+  /bin/echo "Deleting disk image."
+  /bin/rm /tmp/"${DMG_FILE_NAME}"
+}
+######################
+# END FUNCTIONS BLOCK #
+######################
+
+isChromeRunning=$(pgrep -l "Google Chrome")
+
+if [[ -n $isChromeRunning ]]; then
+  #statements
+  echo "google chrome running, exiting"
+  exit 1
+fi
+
+check_versions
+
+download_and_install
+
+send_user_message "Finished installing Google Chrome"
+
+exit 0
+

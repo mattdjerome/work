@@ -1,0 +1,25 @@
+#!/bin/bash
+
+
+# Raw file we are writing
+# DEPLOYMENT_URL=https://www.crashplan.com 
+# DEPLOYMENT_POLICY_TOKEN=0f485e59-d8f4-42d0-8975-d9d4e6dfe9ee
+# CP_SILENT=true
+# DEVICE_CLOAKED=false
+
+FILE_BASE64="REVQTE9ZTUVOVF9VUkw9aHR0cHM6Ly93d3cuY3Jhc2hwbGFuLmNvbQpERVBMT1lNRU5UX1BPTElDWV9UT0tFTj02YTE4MDQ5Ny1kYzI3LTQ1NTgtODBlYi1lYmE3MTQ5MTAxM2QKQ1BfU0lMRU5UPWZhbHNlCkRFVklDRV9DTE9BS0VEPWZhbHNl"
+
+DEPLOY_FILE_DEST="/Library/Application Support/CrashPlan/deploy.properties"
+
+mkdir -p "/Library/Application Support/CrashPlan/"
+
+echo "$FILE_BASE64" | base64 -D -o "$DEPLOY_FILE_DEST"
+
+if [[ -e "$DEPLOY_FILE_DEST" ]]; then
+  echo "install worked"
+  exit 0
+else
+  echo "install failed"
+  exit 1
+  #statements
+fi
