@@ -1,9 +1,0 @@
-#!/bin/bash
-
-
-defaults write /Library/Preferences/us.zoom.config.plist ZAutoJoinVoip 1
-defaults write /Library/Preferences/us.zoom.config.plist ZAutoSSOLogin 1
-defaults write /Library/Preferences/us.zoom.config.plist ZSSOHost "elementalexcelerator.zoom.us"
-defaults write /Library/Preferences/us.zoom.config.plist ZUse720PByDefault 1
-defaults write /Library/Preferences/us.zoom.config.plist nofacebook 1
-defaults write /Library/Preferences/us.zoom.config.plist nogoogle 1

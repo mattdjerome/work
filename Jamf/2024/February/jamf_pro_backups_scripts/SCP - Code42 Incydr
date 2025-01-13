@@ -1,8 +1,0 @@
-#!/bin/bash
-
-
-# This is for the Incydr Agent Only
-echo "DEPLOYMENT_URL=https://console.us2.code42.com
-DEPLOYMENT_POLICY_TOKEN=2d41e292-9f2a-448c-9e4f-f0ab48a5f783
-DEPLOYMENT_SECRET=7/MNbfnCq21xMORh2U6K8mJIZ7w/DTkgR/Ju7xB7q3w=" > /tmp/code42.deployment.properties
-

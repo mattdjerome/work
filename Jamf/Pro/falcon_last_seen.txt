@@ -1,0 +1,169 @@
+#!/usr/bin/env bash
+#Edited by TJ Russell from Kinetix 2-12-21
+
+##########################################################################################
+#
+#   MIT License
+#
+#   Copyright (c) 2016 University of Nebraska–Lincoln
+#
+#	Permission is hereby granted, free of charge, to any person obtaining a copy
+#   of this software and associated documentation files (the "Software"), to deal
+#   in the Software without restriction, including without limitation the rights
+#   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+#   copies of the Software, and to permit persons to whom the Software is
+#   furnished to do so, subject to the following conditions:
+#
+#   The above copyright notice and this permission notice shall be included in all
+#   copies or substantial portions of the Software.
+#
+#   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+#   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+#   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+#   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+#   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+#   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+#   SOFTWARE.
+#
+#   Additional changes made by John Hutchison on 2020-01-22
+#	The original version of this script had contingencies to deal with adding the LAPS
+#	user to Filevault. Recent versions of macOS prevent silent password changes for users
+#	who are also secureToken users. Therefore all Filevault functions have been removed
+#	from this script.
+#	The original project also used multiple scripts to create and then rotate the LAPS
+#	account password. I've reduced all functions to this one script which can be run on
+#	its own at regular intervals.
+#	
+
+macOSMajorVersionNumber="$(sw_vers -productVersion | awk -F '.' '{ print $1 }')"
+macOSMinorVersionNumber="$(sw_vers -productVersion | awk -F '.' '{ print $2 }')"
+LogLocation="/var/log/LAPSPasswordMangementHistory.log"
+apiUser=$4
+apiPass=$5
+LAPSuser=$6
+LAPSuserFullName=$7
+jamfAPIEndpoint=$8
+LAPSPasswordExtensionAttribute="\"LAPS\""
+udid=$(system_profiler SPHardwareDataType | /usr/bin/awk '/Hardware UUID:/ { print $3 }')
+randomLAPSPassword=$(openssl rand -base64 20 | tr -d 0OoIi1lLS=+/ | head -c14;echo)
+####################################################################
+#
+#            ┌─── openssl is used to create
+#            │	a random Base64 string
+#            │                    ┌── remove ambiguous characters
+#            │                    │
+# ┌──────────┴──────────┐	  ┌───┴───────┐
+# openssl rand -base64 20 | tr -d OoIi1lLS=+/  | head -c12;echo
+#                                               └──────┬─────┘
+#                                                      │
+#              prints the first 12 characters    ──────┘
+#              of the randomly generated string
+#
+echo "Seeding new Password $randomLAPSPassword for endpoint"
+xmlPasswordSubmission="<?xml version=\"1.0\" encoding=\"UTF-8\"?><computer><extension_attributes><extension_attribute><name>LAPS</name><value>$randomLAPSPassword</value></extension_attribute></extension_attributes></computer>"
+
+#Option to output to logs
+function ScriptLogging (){
+    DATE=$(date +%Y-%m-%d\ %H:%M:%S)
+    LOG="$LogLocation"
+    echo "$DATE" " $1" >> $LOG
+}
+
+# Checking the Jamf and hardcoded variables to make sure they're populated before we run the policy
+if [[ "$apiUser" = "" || "$apiPass" = "" || "$LAPSuser" = "" || "$LAPSuserFullName" = "" || "$jamfAPIEndpoint" = "" ]]; then
+    #ScriptLogging "Error: One or more Jamf Parameters are blank"
+    echo "Error:  Error: One or more Jamf Parameters are blank"
+    ScriptLogging "======== Aborting LAPS Account Creation ========"
+    exit 1
+fi
+
+# Checking for Jamf Pro reachability. If we can't contact the endpoint there's no point in proceeding further.
+echo "Checking Jamf Pro Endpoint reachability"
+/usr/local/bin/jamf -checkjssconnection -retry 5
+if [[ $(echo $?) = "1" ]]; then
+	ScriptLogging "Jamf Pro Endpoint is not reachable, bailing on LAPS Account Maintenance for now"
+	echo "Jamf Pro Endpoint is not reachable, bailing on LAPS Account Maintenance for now"
+	exit 1
+fi
+
+
+# Function Declarations to create and/or manage the LAPS account and password
+
+function createLAPSAccount (){
+    echo "Creating LAPS Account..."
+    /usr/local/bin/jamf createAccount -username "$LAPSuser" -realname "$LAPSuserFullName" -password "$randomLAPSPassword" -home /var/"$LAPSuser" -shell /bin/zsh -admin -hiddenUser -suppressSetupAssistant
+    echo "LAPS Account Created"
+}
+
+function updateLAPSPasswordJamfEndPoint (){
+    echo "Sending new Password for $LAPSuser to Jamf Pro"
+    /usr/bin/curl -s -u ${apiUser}:${apiPass} -X PUT -H "Content-Type: text/xml" -d "${xmlPasswordSubmission}" "${jamfAPIEndpoint}/JSSResource/computers/udid/$udid"
+}
+
+
+function verifyLAPSPassword (){
+	echo "Verifying new password for $LAPSuser"
+	verificationStatus=$(dscl /Local/Default -authonly "$LAPSuser" "$randomLAPSPassword")
+	if [[ "$verificationStatus" == "" ]]; then
+    	echo "New password for $LAPSuser is verified."
+	else
+    	echo "Error: Verification of password for "$LAPSuser" was not successful!"
+    	echo "======== Aborting LAPS ========"
+    	exit 1
+	fi
+}
+
+#Uses an newer format to read extension attribute starting in Big Sur
+function PasswordRotation (){
+	currentlyDocumentedPassword="$(curl -s -f -u "$apiUser":"$apiPass" -H "Accept: application/xml" $jamfAPIEndpoint/JSSResource/computers/udid/$udid/subset/extension_attributes | xpath -e "//extension_attribute[name=$LAPSPasswordExtensionAttribute]" 2>/dev/null | awk -F'<value>|</value>' '{print $2}')"
+	if [[ -z "$currentlyDocumentedPassword" ]]; then
+		echo "Password not yet stored in Jamf Pro, trying the legacy password"
+        legacyPassword="1T5upp0rt"
+        /usr/local/bin/jamf changePassword -username itsupport -password "$randomLAPSPassword" -oldPassword "$legacyPassword"
+	else
+		echo "Password is stored in Jamf Pro, proceeding with password rotation"
+        /usr/local/bin/jamf changePassword -username itsupport -password "$randomLAPSPassword" -oldPassword "$currentlyDocumentedPassword"
+		#sudo -u "$LAPSuser" sysadminctl -newPassword "$randomLAPSPassword" -oldPassword "$currentlyDocumentedPassword"
+	fi
+}
+
+#Uses an older format to read extension attribute 
+function PasswordRotationOldOS (){
+	currentlyDocumentedPassword="$(curl -s -f -u "$apiUser":"$apiPass" -H "Accept: application/xml" $jamfAPIEndpoint/JSSResource/computers/udid/$udid/subset/extension_attributes | xpath "//extension_attribute[name=$LAPSPasswordExtensionAttribute]" 2>/dev/null | awk -F'<value>|</value>' '{print $2}')"
+	if [[ -z "$currentlyDocumentedPassword" ]]; then
+		echo "Password not yet stored in Jamf Pro, trying the legacy password"
+        legacyPassword="1T5upp0rt"
+        /usr/local/bin/jamf changePassword -username itsupport -password "$randomLAPSPassword" -oldPassword "$legacyPassword"
+	else
+		echo "Password is stored in Jamf Pro, proceeding with password rotation"
+        /usr/local/bin/jamf changePassword -username itsupport -password "$randomLAPSPassword" -oldPassword "$currentlyDocumentedPassword"
+		#sudo -u "$LAPSuser" sysadminctl -newPassword "$randomLAPSPassword" -oldPassword "$currentlyDocumentedPassword"
+	fi
+}
+
+
+
+# Check for the existence of the LAPS Account. We run one of two workflows based on the result
+checkForLAPSAccount=$(dseditgroup -o checkmember -m $LAPSuser localaccounts | awk '{ print $1 }')
+if [[ "$checkForLAPSAccount" = "yes" ]]; then
+    echo "LAPS Account exists, proceeding with password change"
+    if [[ "$macOSMajorVersionNumber" == "10" ]]; then
+       	echo "======== Rotating LAPS User Account Password ========"
+        echo "Using old xml format to report new password"
+    	PasswordRotationOldOS
+    	verifyLAPSPassword
+    	updateLAPSPasswordJamfEndPoint
+    else
+    	echo "======== Rotating LAPS User Account Password ========"
+        echo "Using new xml format to report password"
+    	PasswordRotation
+    	verifyLAPSPassword
+    	updateLAPSPasswordJamfEndPoint
+
+	fi
+else
+    	echo "$LAPSuser is not yet present, proceeding with initial account creation..."
+    	createLAPSAccount
+    	verifyLAPSPassword
+    	updateLAPSPasswordJamfEndPoint
+fi
