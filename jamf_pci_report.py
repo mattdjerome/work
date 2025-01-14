@@ -6,6 +6,11 @@ import json
 from datetime import datetime
 import csv
 import sys
+import getpass
+
+def get_username():
+	return getpass.getuser()
+user = get_username()
 
 def get_uapi_token(jamf_hostname,jamf_user, jamf_password):
 	
@@ -40,6 +45,8 @@ def get_computers(jamf_hostname, bearer_token):
 	response = requests.get(full_url, params=params, headers=headers)
 	results = response.json()
 	return results['results']
+####### Current User #########
+user = get_username()
 
 ####### Get Auth Token #########
 token = get_uapi_token(jamf_hostname,jamf_user, jamf_password)
@@ -49,7 +56,8 @@ all_computers = get_computers(jamf_hostname,token)
 
 ####### Read CSV of PCI Users #######
 fullName = []
-path = '/Users/mjerome/Downloads/fullnames.csv'
+user = getpass.getuser()
+path = '/Users/{user}/Downloads/fullnames.csv'
 with open(f'{path}') as file_obj:
 	reader_obj = csv.reader(file_obj)
 	for row in reader_obj:
@@ -81,3 +89,4 @@ with open(f'PCI_Report_{date}.csv', mode='wt', encoding='utf-8') as report_outpu
 						elif app == 'QualysCloudAgent.app':
 							qualysExist = 'True'
 				writer.writerow((full_name, email, computer, serialNumber, model, firewallStatus,falconExist,qualysExist))
+				
