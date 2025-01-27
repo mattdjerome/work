@@ -57,14 +57,20 @@ all_computers = get_computers(jamf_hostname,token)
 ####### Read CSV of PCI Users #######
 fullName = []
 user = getpass.getuser()
-path = '/Users/{user}/Downloads/fullnames.csv'
+path = f'/Users/{user}/Downloads/fullnames.csv'
 with open(f'{path}') as file_obj:
 	reader_obj = csv.reader(file_obj)
 	for row in reader_obj:
 		fullName.append((row[0]))
 
 ####### Gather the PCI data #######
-date = datetime.now()
+# Get the current date
+current_date = datetime.now()
+
+# Format the date as year-month-day
+date = current_date.strftime('%Y-%m-%d')
+
+# Print the formatted date
 apps_to_check = ['Falcon.app', 'QualysCloudAgent.app']
 with open(f'PCI_Report_{date}.csv', mode='wt', encoding='utf-8') as report_output:
 	writer = csv.writer(report_output)
@@ -89,4 +95,3 @@ with open(f'PCI_Report_{date}.csv', mode='wt', encoding='utf-8') as report_outpu
 						elif app == 'QualysCloudAgent.app':
 							qualysExist = 'True'
 				writer.writerow((full_name, email, computer, serialNumber, model, firewallStatus,falconExist,qualysExist))
-				
