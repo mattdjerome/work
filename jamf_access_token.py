@@ -70,7 +70,6 @@ if access_token:
 	print(response.json())
 	
 check_token_expiration()
-invalidate_token()
 
 if access_token:
 	response = requests.get(
@@ -79,3 +78,8 @@ if access_token:
 	)
 	print(response.json())
 	
+	
+	
+
+
+invalidate_token()
