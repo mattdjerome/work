@@ -1,7 +1,7 @@
 #!/bin/bash
 
-title=""
-message=""
-icon=""
-button1Text=""
-dialog --title "$timer" --style mini --message "$message" --icon "$icon" --button1text "$button1Text" --ontop --moveable --position center
+title="title"
+message="message"
+icon="icon"
+button1Text="b1text"
+dialog --title "$title" --style mini --message "$message" --icon "$icon" --button1text "$button1Text" --ontop --moveable --position center
