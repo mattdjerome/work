@@ -4,7 +4,7 @@
 apiuser="$1"
 apipass="$2"
 jamfProURL="$3"
-sourceFile=/Users/mjerome/Downloads/zscaler_deploymebt.csv
+sourceFile="$4"
 
 # Obtain a Bearer Token using Basic Authentication, write the output into a variable
 request=$(/usr/bin/curl --request POST --url ${jamfProURL}/api/v1/auth/token --header 'accept: application/json' --user "${apiuser}:${apipass}" )
@@ -15,7 +15,7 @@ token=$(/usr/bin/plutil -extract token raw -o - - <<< "$request")
 GroupID="$5"
 GroupName="$6"
 apiURL="${jamfProURL}/JSSResource/computergroups/id/${GroupID}"
-
+open $apiURL
 while IFS=',' read -r col1
 do
     xmlHeader='<?xml version="1.0" encoding="UTF-8" standalone="no"?>'
