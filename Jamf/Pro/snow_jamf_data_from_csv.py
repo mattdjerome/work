@@ -5,6 +5,8 @@ import csv
 from local_credentials import jamf_user, jamf_password, jamf_hostname
 from jamf_pro_sdk import JamfProClient, BasicAuthProvider
 from collections import defaultdict
+import pandas as pd
+
 
 snowDataFile = sys.argv[1] # CSV for ServiceNow data
 jamfDataFile = sys.argv[2] # CSV for Jamf data
